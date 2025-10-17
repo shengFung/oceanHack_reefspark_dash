@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/logospark.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./static/assets/img/logospark.png">
+  <link rel="icon" type="image/png" href="./static/assets/img/logospark.png">
+  <title>
+    reefSpark
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../static/assets/css/soft-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../static/assets/img/logospark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">reefSpark</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link  active" href="/">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>archive</title>
+                <!-- Replace with actual SVG path data -->
+                <path d="M5,10 L40,10 L40,30 L5,30 Z M10,15 L35,15 M10,20 L35,20" fill="#000000"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Historical Insights</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+             <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+              <title>satellite</title>
+              <!-- Replace with actual SVG path data -->
+              <circle cx="22.5" cy="20" r="10" stroke="#000000" stroke-width="2" fill="none"/>
+              <line x1="10" y1="10" x2="35" y2="30" stroke="#000000" stroke-width="2"/>
+            </svg>
+            </div>
+            <span class="nav-link-text ms-1">Live Monitoring</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="./pages/billing.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>forecast</title>
+                <!-- Replace with actual SVG path data -->
+                <polyline points="5,30 15,20 25,25 35,15 45,20" fill="none" stroke="#000000" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Forecast & Prediction</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Historical Insights</li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-lg-6 col-12">
+          <div class="row">
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="row mt-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="d-flex flex-column h-100">
+                    <p class="mb-1 pt-2 text-bold">Throwback 🔁</p>
+                    <h5 class="font-weight-bolder">Historical Insights</h5>
+                    <p class="mb-5">Dive into decades of ocean observations. This page showcases long-term trends in temperature, dissolved oxygen, and other key water quality parameters from the World Ocean Database.
+Explore how ocean health has changed over time by year, by depth, and by region to better understand the environmental shifts shaping our marine ecosystems.</p>
+                    
+                  </div>
+                </div>
+                <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
+                  <div class="bg-primary border-radius-lg h-100">
+                    <img src="../static/assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
+                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                      <img class="w-50 position-relative z-index-2 pt-2" src="../static/assets/img/illustrations/oceanz.svg" alt="rocket">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-5">
+          <div class="card h-100 p-3">
+            <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg');">
+              <span class="mask bg-gradient-dark"></span>
+              <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
+                <h5 class="text-white font-weight-bolder mb-4 pt-2">About the Dataset 📈</h5>
+                <p class="text-white">The analysis presented in this dashboard is powered by the World Ocean Database (WOD), an open-access oceanographic archive maintained by NOAA's National Centers for Environmental Information (NCEI).
+It compiles millions of global measurements collected from ships, buoys, underwater sensors, and research cruises dating back to the early 1800s.
+The data includes variables such as temperature, salinity, dissolved oxygen, depth, time, and geolocation, enabling high-resolution insights into ocean conditions across time and space.</p>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row mt-4">
+      
+
+        <div class="col-lg-12">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+
+              <h6>Average Surface Temperature by Year</h6>
+
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">🌡️ Surface Temperature Trend Overview</span>
+                <span class="d-block mb-2">
+                  This chart visualizes the long-term <strong>average surface temperature trends</strong> derived from the World Ocean Database.
+                  Use the dropdown to explore how temperatures have changed over time across different oceanic regions.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Entire ocean coverage.</li>
+                  <li><strong>🌴 Tropics (23°N–23°S)</strong> – Warm equatorial waters critical for coral reefs and biodiversity.</li>
+                  <li><strong>❄️ Arctic (66°N–90°N)</strong> – Rapidly warming polar region with seasonal sea ice loss.</li>
+                  <li><strong>🧊 Antarctic (66°S–90°S)</strong> – Southern polar ocean, showing signs of deepwater warming.</li>
+                  <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Key monsoon-influenced basin.</li>
+                  <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Largest ocean with El Niño/La Niña effects.</li>
+                </ul>
+              </p>
+
+
+
+
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <select id="region-select" class="form-select" onchange="loadTrendData()">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                    <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                  </select>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="row mt-4">
+      
+
+        <div class="col-lg-12">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+
+              <h6>Average Surface Dissolved Oxygen by Year</h6>
+
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">💨 Surface Dissolved Oxygen Trend Overview</span>
+                <span class="d-block mb-2">
+                  This chart tracks long-term <strong>average surface dissolved oxygen (DO) trends</strong> from the World Ocean Database. 
+                  Use the dropdown to compare how oxygen availability varies across oceanic regions over time.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Overall ocean oxygen trends, reflecting climate and ecological shifts.</li>
+                  <li><strong>🌴 Tropics (23°N–23°S)</strong> – Warm, low-oxygen zones prone to "dead zones" from stratification.</li>
+                  <li><strong>❄️ Arctic (66°N–90°N)</strong> – Cold, oxygen-rich waters facing declines due to warming and ice melt.</li>
+                  <li><strong>🧊 Antarctic (66°S–90°S)</strong> – High-oxygen polar waters, with recent variability from circulation changes.</li>
+                  <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Affected by monsoons and OMZ (Oxygen Minimum Zone) expansion.</li>
+                  <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Largest OMZs; El Niño events disrupt oxygen supply.</li>
+                </ul>
+              </p>
+
+
+
+
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <select id="region-select2" class="form-select" onchange="loadTrendData2()">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                    <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                  </select>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-line2" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row mt-4">
+        <div class="col-lg-12">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+
+              <h6>Average Surface Salinity by Year</h6>
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">🧂 Surface Salinity Trend Overview</span>
+                <span class="d-block mb-2">
+                  This chart visualizes long-term <strong>average surface salinity trends</strong> from the World Ocean Database.
+                  Salinity affects ocean density, circulation, and ecosystem dynamics. Use the dropdown to observe how salinity patterns have changed over time across different regions.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Overall changes in ocean salt content across all basins.</li>
+                  <li><strong>🌴 Tropics (23°N–23°S)</strong> – High evaporation regions with elevated salinity levels.</li>
+                  <li><strong>❄️ Arctic (66°N–90°N)</strong> – Freshening due to ice melt and precipitation increases.</li>
+                  <li><strong>🧊 Antarctic (66°S–90°S)</strong> – Surface freshening linked to glacial melt and changing currents.</li>
+                  <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Seasonal shifts from monsoon rains and river inflows.</li>
+                  <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Vast salinity gradients influenced by El Niño/La Niña cycles.</li>
+                </ul>
+              </p>
+
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <select id="region-select3" class="form-select" onchange="loadTrendData3()">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                    <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-line3" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row mt-4">
+
+
+       <div class="col-lg-12">
+        <div class="card z-index-2">
+          <div class="card-header pb-0">
+            <h6>Temperature–Salinity (T–S) Diagram</h6>
+
+            <p class="text-sm">
+              <span class="font-weight-bold d-block mb-2">🌊 Water Mass Identification via T–S Profile</span>
+              <span class="d-block mb-2">
+                This scatter plot visualizes the relationship between <strong>water temperature</strong> and <strong>salinity</strong> across depths. 
+                Patterns in this plot help identify different <strong>water masses</strong> and detect ocean <strong>mixing layers</strong>.
+              </span>
+
+              <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+              <ul class="mb-0 ps-4">
+                <li><strong>🌍 Global</strong> – Full-ocean thermohaline structure.</li>
+                <li><strong>🌴 Tropics (23°N–23°S)</strong> – Warm, salty surface water dominates.</li>
+                <li><strong>❄️ Arctic (66°N–90°N)</strong> – Freshened surface from melting ice.</li>
+                <li><strong>🧊 Antarctic (66°S–90°S)</strong> – Cold, fresh layers overlay dense salty bottom water.</li>
+                <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Monsoon-driven stratification patterns.</li>
+                <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Wide salinity gradients with equatorial variation.</li>
+              </ul>
+            </p>
+
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <select id="region-select-ts" class="form-select" onchange="loadTSByYear()">
+                  <option value="global">🌍 Global</option>
+                  <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                  <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                  <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                  <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                  <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="year-slider" class="form-label">Year: <span id="year-value">1873</span></label>
+                <input type="range" id="year-slider" min="1800" max="1940" value="1873" step="1" 
+                    oninput="updateYearLabel(this.value); loadTSByYear(this.value)">
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body p-3">
+            <div class="chart">
+              <canvas id="chart-ts" class="chart-canvas" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+       </div>
+
+
+       <div class="row mt-4">
+
+           <div class="col-lg-6">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+              <h6>Surface Temperature vs. Dissolved Oxygen Correlation</h6>
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">🔗 Temp–DO Correlation Overview</span>
+                <span class="d-block mb-2">
+                  This chart illustrates the <strong>yearly Pearson correlation</strong> between <strong>surface temperature</strong> and <strong>dissolved oxygen (DO)</strong> levels across different ocean regions.
+                  Negative values typically indicate that warmer waters hold less oxygen, a crucial dynamic affecting marine life and ecosystem balance.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Overall relationship trends across global oceans.</li>
+                  <li><strong>🌴 Tropics (23°N–23°S)</strong> – Warm zones with stronger oxygen depletion under heat stress.</li>
+                  <li><strong>❄️ Arctic (66°N–90°N)</strong> – Cold regions with high DO, but increasingly warming.</li>
+                  <li><strong>🧊 Antarctic (66°S–90°S)</strong> – Polar waters showing shifting thermal-oxygen dynamics.</li>
+                  <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Impacted by monsoons and oxygen minimum zones.</li>
+                  <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Strong El Niño/La Niña influence on DO patterns.</li>
+                </ul>
+              </p>
+
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <select id="region-select4" class="form-select" onchange="loadCorrelationData()">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                    <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-correlation" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+              <h6>Stratification Proxy (ΔT 0m–200m)</h6>
+              <p class="text-sm">
+                <span class="d-block mb-2">Tracks thermal layering: temperature difference between surface and 200m depth.</span>
+              </p>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <select id="region-select-strat" class="form-select" onchange="loadStratByYear(document.getElementById('strat-year-slider').value)">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                    <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="strat-year-slider" class="form-label">Year: <span id="strat-year-value">1873</span></label>
+                  <input type="range" id="strat-year-slider" min="1800" max="1940" value="1873" step="1"
+                        oninput="updateStratYearLabel(this.value); loadStratByYear(this.value)">
+                </div>
+                <br></br>
+                <div class="col-md-3">
+                  <label class="form-label d-block">View Mode</label>
+                  <button class="btn btn-outline-primary btn-sm" onclick="toggleMapView()">🗺️ Map View</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body p-3">
+              <div class="chart">
+                <div id="heatmap-loader" style="display:none; text-align: center;">
+                  <p>Loading stratification data...</p>
+                </div>
+                <div id="heatmap-strat" style="width: 100%; height: 600px;"></div>
+                <div id="map-strat" style="height: 600px; width: 100%; display: none;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+
+      
+       <div class="row mt-4">
+        <div class="col-lg-6">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+              <h6>🌍 Climatology & Anomalies</h6>
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">🌡️ Climatology & Anomalies Analysis</span>
+                <span class="d-block mb-2">
+                  This chart compares the <strong>monthly climatology</strong> of sea surface temperature (SST) with the <strong>monthly anomalies</strong> for selected regions.
+                  Climatology represents the baseline average cycle (Jan–Dec) derived from multi-year historical data.
+                  Anomalies highlight deviations from this baseline, showing whether specific months were warmer or cooler than the historical norm.
+                  Understanding these variations helps identify seasonal cycles, detect long-term warming trends, and reveal regional climate shifts that affect ecosystems and weather patterns.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Overall seasonal cycle of SST and anomalies across the world’s oceans.</li>
+                  <li><strong>🌴 Tropics (23°N–23°S)</strong> – Strong seasonal heating, with anomalies linked to El Niño/La Niña events.</li>
+                  <li><strong>❄️ Arctic (66°N–90°N)</strong> – Cold baseline climatology but rapid anomaly increases due to accelerated polar warming.</li>
+                  <li><strong>🧊 Antarctic (66°S–90°S)</strong> – Strong seasonal cycle tied to sea ice extent, with subtle but critical anomaly shifts.</li>
+                  <li><strong>🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</strong> – Monsoon-driven climatology and anomalies, influenced by the Indian Ocean Dipole.</li>
+                  <li><strong>🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</strong> – Dominated by ENSO (El Niño/La Niña) events, showing major anomaly swings.</li>
+                </ul>
+              </p>
+
+              <select id="clim-region-select" class="form-select form-select-sm w-auto d-inline-block">
+                <option value="global">🌍 Global</option>
+                <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                <option value="indian">🌊 Indian Ocean (30°N–30°S, 20°E–120°E)</option>
+                <option value="pacific">🌊 Pacific Ocean (30°N–30°S, 120°E–100°W)</option>
+              </select>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="chart">
+                <canvas id="climatologyChart" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+              <h6>📊 Vertical Profiles</h6>
+
+              <p class="text-sm">
+                <span class="font-weight-bold d-block mb-2">🌡️ Temperature & Oxygen with Depth</span>
+                <span class="d-block mb-2">
+                  This chart shows the <strong>vertical structure</strong> of the ocean, comparing how
+                  <strong>temperature (°C)</strong> and <strong>dissolved oxygen (mg/L)</strong> change with depth.
+                  These profiles reveal thermal layering, oxygen minimum zones, and water-mass properties that
+                  regulate marine ecosystems.
+                </span>
+
+                <span class="d-block"><strong>📍 Region Breakdown:</strong></span>
+                <ul class="mb-0 ps-4">
+                  <li><strong>🌍 Global</strong> – Average profile across the world’s oceans.</li>
+                  <li><strong>🌴 Tropics</strong> – Strong surface heating, sharp thermocline, oxygen minimum layer.</li>
+                  <li><strong>❄️ Arctic</strong> – Cold surface, weaker stratification, higher oxygen at depth.</li>
+                  <li><strong>🧊 Antarctic</strong> – Deep water formation regions, uniform cold profile.</li>
+                  <li><strong>🌊 Indian Ocean</strong> – Seasonal monsoon effects and distinct oxygen minimum zones.</li>
+                  <li><strong>🌊 Pacific Ocean</strong> – Strong ENSO-linked variability in thermocline depth.</li>
+                </ul>
+              </p>
+
+              <div class="d-flex align-items-center gap-3">
+                <select id="profile-region-select" class="form-select form-select-sm w-auto d-inline-block" onchange="updateProfile()">
+                  <option value="global">🌍 Global</option>
+                  <option value="tropics">🌴 Tropics</option>
+                  <option value="arctic">❄️ Arctic</option>
+                  <option value="antarctic">🧊 Antarctic</option>
+                  <option value="indian">🌊 Indian Ocean</option>
+                  <option value="pacific">🌊 Pacific Ocean</option>
+                </select>
+
+                <div class="col-md-6">
+                  <input type="range" id="profile-year-slider" min="1800" max="1940" step="1" value="1940" 
+                        class="form-range w-50" oninput="updateProfileYearLabel(this.value)" onchange="updateProfile()">
+
+                  <span id="profile-year-value" class="ms-2 fw-bold">1940</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body px-0 pb-2">
+              <div class="chart">
+                <canvas id="profileChart" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+       
+
+        <div class="row mt-4">
+          <div class="col-lg-12">
+            <div class="card z-index-2">
+              <div class="card-header pb-0">
+                <h6>📊 Hovmöller Diagram (Depth–Time Evolution)</h6>
+
+                <p class="text-sm">
+                  <span class="font-weight-bold d-block mb-2">🌡️ Temperature / Oxygen / Salinity over Time</span>
+                  <span class="d-block mb-2">
+                    The Hovmöller diagram visualizes how ocean properties change <strong>vertically (depth)</strong> and
+                    <strong>over time (yearly)</strong> for different ocean regions.  
+                    This helps identify long-term warming trends, oxygen depletion zones, and salinity shifts linked to climate variability.
+                  </span>
+
+                  <span class="d-block"><strong>🌍 Choose Region & Variable:</strong></span>
+                </p>
+
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                  <select id="hov-region" class="form-select form-select-sm w-auto d-inline-block" onchange="loadHovmoller()">
+                    <option value="global">🌍 Global</option>
+                    <option value="tropics">🌴 Tropics (23°N–23°S)</option>
+                    <option value="arctic">❄️ Arctic (66°N–90°N)</option>
+                    <option value="antarctic">🧊 Antarctic (66°S–90°S)</option>
+                    <option value="indian">🌊 Indian Ocean</option>
+                    <option value="pacific">🌊 Pacific Ocean</option>
+                  </select>
+
+                  <select id="hov-var" class="form-select form-select-sm w-auto d-inline-block" onchange="loadHovmoller()">
+                    <option value="temp">🌡️ Temperature (°C)</option>
+                    <option value="oxy">🫧 Oxygen (mg/L)</option>
+                    <option value="salinity">🧂 Salinity (PSU)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="card-body px-0 pb-2">
+                <div class="chart position-relative">
+                  <div id="hovmoller-loader" class="text-center my-3" style="display:none;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="text-secondary small mt-2">Loading Hovmöller data...</p>
+                  </div>
+                  <div id="hovmollerPlot" class="chart-canvas" style="height: 350px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+          <div class="row mt-4">
+            <div class="col-lg-12">
+              <div class="card z-index-2">
+                <div class="card-header pb-0">
+                <h6 class="mb-0">🌊 Reef Stress Index (RSI)</h6>
+                <span class="font-weight-bold d-block mb-2">Combined T-S-O₂ stress indicator</span>
+                <span class="d-block mb-2">
+                  The Reef Stress Index combines <strong>temperature</strong>, <strong>salinity</strong>, and <strong>oxygen</strong> data 
+                  to measure how much stress coral ecosystems experience over time.  
+                  By adjusting the stress weights, you can explore how different environmental factors 
+                  (like heat, oxygen loss, or stratification) impact reef health and resilience.
+                </span>
+
+              </div>
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-lg-4">
+                    <label class="form-label mt-2 fw-bold">Region</label>
+                    <select id="regionSelect" class="form-select mb-3">
+                      <option value="global">Global</option>
+                      <option value="tropics" selected>Tropics</option>
+                      <option value="indian">Indian Ocean</option>
+                      <option value="pacific">Pacific Ocean</option>
+                      <option value="arctic">Arctic</option>
+                      <option value="antarctic">Antarctic</option>
+                    </select>
+
+                    <label class="form-label fw-bold">Weights</label>
+                    <div class="input-group input-group-sm mb-2">
+                      <span class="input-group-text">TSI</span>
+                      <input type="number" id="w_tsi" class="form-control" step="0.1" value="0.5">
+                    </div>
+                    <div class="input-group input-group-sm mb-2">
+                      <span class="input-group-text">HCI</span>
+                      <input type="number" id="w_hci" class="form-control" step="0.1" value="0.3">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                      <span class="input-group-text">OSI</span>
+                      <input type="number" id="w_osi" class="form-control" step="0.1" value="0.2">
+                    </div>
+
+                    <button class="btn btn-info w-100 mb-2" onclick="updateRSI()">Update RSI</button>
+                    <small class="text-muted">Adjust weights to explore sensitivity.</small>
+                  </div>
+
+                  <div class="col-lg-8">
+                    <div id="reefStressPlot" style="height:420px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+
+
+      <footer class="footer pt-3  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              
+            </div>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+      <i class="fa fa-cog py-2"> </i>
+    </a>
+    <div class="card shadow-lg ">
+      <div class="card-header pb-0 pt-3 ">
+        <div class="float-start">
+          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
+          <p>See our dashboard options.</p>
+        </div>
+        <div class="float-end mt-4">
+          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0">
+        <!-- Sidebar Backgrounds -->
+        <div>
+          <h6 class="mb-0">Sidebar Colors</h6>
+        </div>
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+          <div class="badge-colors my-2 text-start">
+            <span class="badge filter bg-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+          </div>
+        </a>
+        <!-- Sidenav Type -->
+        <div class="mt-3">
+          <h6 class="mb-0">Sidenav Type</h6>
+          <p class="text-sm">Choose between 2 different sidenav types.</p>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+          <button class="btn btn-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+        </div>
+        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+        <!-- Navbar Fixed -->
+        <div class="mt-3">
+          <h6 class="mb-0">Navbar Fixed</h6>
+        </div>
+        <div class="form-check form-switch ps-0">
+          <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+        </div>
+        <hr class="horizontal dark my-sm-4">
+        <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard">Free Download</a>
+        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View documentation</a>
+        <div class="w-100 text-center">
+          <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
+          <h6 class="mt-3">Thank you for sharing!</h6>
+          <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../static/assets/js/core/popper.min.js"></script>
+  <script src="../static/assets/js/core/bootstrap.min.js"></script>
+  <script src="../static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../static/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../static/assets/js/plugins/chartjs.min.js"></script>
+  <script>
+   
+
+   // First Graph
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+      let trendChart;
+
+      const regionBounds = {
+        global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+        tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+      };
+
+      function loadTrendData() {
+        const selectedRegion = document.getElementById('region-select').value;
+        const bounds = regionBounds[selectedRegion];
+
+        const query = `lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+
+        fetch(`/api/trends?${query}`)
+          .then(res => res.json())
+          .then(data => {
+            const ctx2 = document.getElementById("chart-line").getContext("2d");
+
+            if (trendChart) trendChart.destroy();
+
+            trendChart = new Chart(ctx2, {
+              type: "line",
+              data: {
+                labels: data.labels,
+                datasets: [{
+                  label: "Surface Temp (°C)",
+                  data: data.temp_data,
+                  borderColor: "#f5365c",
+                  backgroundColor: "rgba(245, 54, 92, 0.2)",
+                  borderWidth: 2,
+                  fill: true,
+                  tension: 0.3
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top'
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: false,
+                    title: { display: true, text: '°C' }
+                  },
+                  x: {
+                    title: { display: true, text: 'Year' }
+                  }
+                }
+              }
+            });
+          });
+      }
+
+      window.onload = loadTrendData;
+</script>
+
+
+<script>
+
+  // Second Graph
+    var ctx3 = document.getElementById("chart-line2").getContext("2d");
+
+      let trendChart2;
+
+      const regionBounds2 = {
+        global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+        tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+      };
+
+      function loadTrendData2() {
+        const selectedRegion2 = document.getElementById('region-select2').value;
+        const bounds2 = regionBounds2[selectedRegion2];
+
+        const query = `lat_min=${bounds2.lat_min}&lat_max=${bounds2.lat_max}&lon_min=${bounds2.lon_min}&lon_max=${bounds2.lon_max}`;
+
+        fetch(`/api/trends?${query}`)
+          .then(res => res.json())
+          .then(data => {
+            const ctx3 = document.getElementById("chart-line2").getContext("2d");
+
+            if (trendChart2) trendChart2.destroy();
+
+            trendChart2 = new Chart(ctx3, {
+              type: "line",
+              data: {
+                labels: data.labels2,
+                datasets: [{
+                  label: "Dissolved Oxygen (mg/L)",
+                  data: data.oxy_data,
+                  borderColor: "#4736F5",
+                  backgroundColor: "rgba(71, 54, 245, 0.2)",
+                  borderWidth: 2,
+                  fill: true,
+                  tension: 0.3
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top'
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: false,
+                    title: { display: true, text: 'mg/L' }
+                  },
+                  x: {
+                    title: { display: true, text: 'Year' }
+                  }
+                }
+              }
+            });
+          });
+      }
+
+      window.onload = loadTrendData2;
+
+</script>
+
+
+
+<script>
+
+  // Third Graph
+    var ctx4 = document.getElementById("chart-line3").getContext("2d");
+
+      let trendChart3;
+
+      const regionBounds3 = {
+        global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+        tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+      };
+
+      function loadTrendData3() {
+        const selectedRegion3 = document.getElementById('region-select3').value;
+        const bounds3 = regionBounds3[selectedRegion3];
+
+        const query = `lat_min=${bounds3.lat_min}&lat_max=${bounds3.lat_max}&lon_min=${bounds3.lon_min}&lon_max=${bounds3.lon_max}`;
+
+        fetch(`/api/trends?${query}`)
+          .then(res => res.json())
+          .then(data => {
+            const ctx4 = document.getElementById("chart-line3").getContext("2d");
+
+            if (trendChart3) trendChart3.destroy();
+
+            trendChart3 = new Chart(ctx4, {
+              type: "line",
+              data: {
+                labels: data.labels3,
+                datasets: [{
+                  label: "Salinity (ppt)",
+                  data: data.sal_data,
+                  borderColor: "#777777",
+                  backgroundColor: "rgba(170, 170, 170, 0.2)",
+                  borderWidth: 2,
+                  fill: true,
+                  tension: 0.3
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top'
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: false,
+                    title: { display: true, text: 'ppt' }
+                  },
+                  x: {
+                    title: { display: true, text: 'Year' }
+                  }
+                }
+              }
+            });
+          });
+      }
+
+      window.onload = loadTrendData3;
+
+</script>
+
+
+
+<script>
+
+  // fourth Correlation Graph
+
+  let correlationChart;
+
+  const regionBounds4 = {
+    global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+    tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+    arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+    antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+    indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+    pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+  };
+
+  function loadCorrelationData() {
+    const selectedRegion = document.getElementById('region-select4').value;
+    const bounds = regionBounds4[selectedRegion];
+    const query = `lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+
+    fetch(`/api/temp_oxy_correlation?${query}`)
+      .then(res => res.json())
+      .then(data => {
+        const ctx = document.getElementById("chart-correlation").getContext("2d");
+
+        if (correlationChart) correlationChart.destroy();
+
+        correlationChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: data.years,
+            datasets: [{
+              label: "Temp vs DO Correlation (r)",
+              data: data.correlation,
+              borderColor: "#ff6600",
+              backgroundColor: "rgba(255, 165, 0, 0.2)",
+              borderWidth: 2,
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top'
+              }
+            },
+            scales: {
+              y: {
+                suggestedMin: -1,
+                suggestedMax: 1,
+                title: { display: true, text: 'Pearson Correlation (r)' }
+              },
+              x: {
+                title: { display: true, text: 'Year' }
+              }
+            }
+          }
+        });
+      });
+  }
+
+  window.onload = loadCorrelationData;
+</script>
+
+
+
+
+<script>
+
+  // fifth T-S Graph
+  const regionBoundsTS = {
+    global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+    tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+    arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+    antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+    indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+    pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+  };
+
+  let tsChart;
+
+  function loadTSByYear() {
+    const selectedRegion = document.getElementById('region-select-ts').value;
+    const selectedYear = document.getElementById('year-slider').value;
+    const bounds = regionBoundsTS[selectedRegion];
+    const query = `lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}&year=${selectedYear}`;
+
+    fetch(`/api/ts_scatter_by_year?${query}`)
+      .then(res => res.json())
+      .then(data => {
+        const ctx = document.getElementById("chart-ts").getContext("2d");
+
+        const points = data.temp.map((temp, i) => ({
+          x: data.sal[i],
+          y: temp,
+          r: 3,
+          backgroundColor: getDepthColor(data.depth[i])
+        }));
+
+        if (tsChart) tsChart.destroy();
+
+        tsChart = new Chart(ctx, {
+          type: 'scatter',
+          data: {
+            datasets: [{
+              label: `T–S Profile (${selectedYear})`,
+              data: points,
+              pointBackgroundColor: points.map(p => p.backgroundColor),
+              pointRadius: 3,
+              showLine: false
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `S: ${context.raw.x} ppt, T: ${context.raw.y}°C, Depth: ${data.depth[context.dataIndex]}m`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: 'Salinity (ppt)' }
+              },
+              y: {
+                title: { display: true, text: 'Temperature (°C)' }
+              }
+            }
+          }
+        });
+      });
+  }
+
+  let leafletMap = null;
+  let leafletLayer = null;
+
+  function toggleMapView(view = null) {
+    const mapDiv = document.getElementById("map-strat");
+    const heatmapDiv = document.getElementById("heatmap-strat");
+
+    if (!view) {
+      // default toggle
+      view = mapDiv.style.display === "none" ? "map" : "heatmap";
+    }
+
+    if (view === "map") {
+      heatmapDiv.style.display = "none";
+      mapDiv.style.display = "block";
+
+      if (!leafletMap) {
+        leafletMap = L.map("map-strat").setView([0, 150], 2);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(leafletMap);
+      }
+
+      // Load current data as points
+      loadStratForMap(); // this function defined below
+
+    } else {
+      mapDiv.style.display = "none";
+      heatmapDiv.style.display = "block";
+    }
+  }
+
+
+  function loadStratForMap() {
+    const selectedRegion = document.getElementById('region-select-strat').value;
+    const bounds = regionBoundsStrat[selectedRegion];
+    const year = document.getElementById('strat-year-slider').value;
+
+    const query = `year=${year}&lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+
+    fetch(`/api/strat_proxy_by_year?${query}`)
+      .then(res => res.json())
+      .then(data => {
+        if (leafletLayer) {
+          leafletMap.removeLayer(leafletLayer);
+        }
+
+        leafletLayer = L.layerGroup();
+
+        data.lat.forEach((lat, i) => {
+          const lon = data.lon[i];
+          const delta_T = data.delta_T[i];
+          const color = getColorByDeltaT(delta_T);
+
+          const marker = L.circleMarker([lat, lon], {
+            radius: 6,
+            fillColor: color,
+            color: '#000',
+            weight: 0.5,
+            fillOpacity: 0.8
+          }).bindPopup(`ΔT: ${delta_T}°C<br>Lat: ${lat}, Lon: ${lon}`);
+
+          leafletLayer.addLayer(marker);
+        });
+
+        leafletLayer.addTo(leafletMap);
+      });
+  }
+
+  function getColorByDeltaT(d) {
+    return d > 25 ? '#d73027' :
+          d > 20 ? '#fc8d59' :
+          d > 10 ? '#fee08b' :
+          d > 5  ? '#d9ef8b' :
+          d > 0  ? '#91cf60' :
+                    '#4575b4'; // cold (negative or very low)
+  }
+
+  function getDepthColor(depth) {
+    const norm = Math.min(depth / 1000, 1);
+    const r = Math.floor(255 * norm);
+    const b = 255 - r;
+    return `rgb(${r}, 0, ${b})`;
+  }
+
+  function updateYearLabel(val) {
+    document.getElementById('year-value').innerText = val;
+  }
+
+
+  window.onload = loadTSByYear;
+</script>
+
+
+
+
+<script>
+  // sixth Stratification Proxy Graph
+      const regionBoundsStrat = {
+        global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+        tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+      };
+
+      let stratChart;
+
+      function updateStratYearLabel(val) {
+        document.getElementById('strat-year-value').textContent = val;
+      }
+
+      function loadStratByYear(year = 1873) {
+        const selectedRegion = document.getElementById('region-select-strat').value;
+        const bounds = regionBoundsStrat[selectedRegion];
+        const query = `year=${year}&lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+
+        // Show loading spinner/message
+        document.getElementById("heatmap-loader").style.display = "block";
+        document.getElementById("heatmap-strat").style.display = "none";
+
+        fetch(`/api/strat_proxy_by_year?${query}`)
+          .then(res => res.json())
+          .then(data => {
+            // Hide loading spinner
+            document.getElementById("heatmap-loader").style.display = "none";
+            document.getElementById("heatmap-strat").style.display = "block";
+
+            if (!data.lat || data.lat.length === 0) {
+              showMessage("No stratification data available for this year.");
+              return;
+            }
+
+            const heatmapData = [{
+              type: 'scatter',
+              mode: 'markers',
+              x: data.lon,
+              y: data.lat,
+              text: data.delta_T.map(d => `ΔT: ${d}°C`),
+              marker: {
+                size: 8,
+                color: data.delta_T,
+                colorscale: 'RdBu',
+                colorbar: {
+                  title: 'ΔT (°C)',
+                  titleside: 'right'
+                },
+                cmin: -10,
+                cmax: 30
+              }
+            }];
+
+            const layout = {
+              title: `Stratification Proxy (ΔT 0–200m) - ${year}`,
+              xaxis: { title: 'Longitude (°)' },
+              yaxis: { title: 'Latitude (°)' },
+              margin: { t: 50 }
+            };
+
+            Plotly.newPlot('heatmap-strat', heatmapData, layout);
+          })
+          .catch(err => {
+            document.getElementById("heatmap-loader").style.display = "none";
+            document.getElementById("heatmap-strat").style.display = "block";
+            showMessage("Error loading stratification data.");
+            console.error(err);
+          });
+      }
+
+
+
+      window.onload = loadStratByYear;
+</script>
+
+<script>
+
+  // seventh Climatology & Anomalies Graph
+
+  //   const regionBoundCA = {
+  //   global: { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+  //   indian: { lat_min: -40, lat_max: 30, lon_min: 20, lon_max: 120 },
+  //   pacific: { lat_min: -60, lat_max: 60, lon_min: 120, lon_max: -80 }, // wrap-around handled below
+  //   atlantic: { lat_min: -60, lat_max: 60, lon_min: -70, lon_max: 20 }
+  // };
+
+
+
+  const regionBoundCA = {
+        global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
+        tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
+      };
+
+
+
+  let climatologyChart = null;
+
+  async function loadClimatologyAnomalies() {
+      const region = document.getElementById('clim-region-select').value;
+      const bounds = regionBoundCA[region];
+
+      // Build query string
+      const url = `/api/climatology_anomalies?lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      // Build datasets
+      const climatologyDataset = {
+        label: "Climatology (°C)",
+        data: data.climatology,
+        borderColor: "blue",
+        fill: false,
+      };
+
+      const anomaliesDataset = {
+        label: "Anomaly (°C)",
+        data: data.anomaly,
+        borderColor: "red",
+        fill: false,
+      };
+
+      // Update chart
+      if (climatologyChart) {
+        climatologyChart.data.labels = data.months;
+        climatologyChart.data.datasets = [climatologyDataset, anomaliesDataset];
+        climatologyChart.update();
+        return;
+      }
+
+      const ctx = document.getElementById("climatologyChart").getContext("2d");
+      climatologyChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.months, // 1–12
+          datasets: [climatologyDataset, anomaliesDataset],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "top" },
+            title: { display: true, text: `Monthly Climatology & Anomalies (${region})` },
+          },
+          scales: {
+            x: { title: { display: true, text: "Month" } },
+            y: { title: { display: true, text: "°C" } },
+          },
+        },
+      });
+    }
+
+  // Load on page ready
+  document.addEventListener("DOMContentLoaded", loadClimatologyAnomalies);
+  document.getElementById("clim-region-select").addEventListener("change", loadClimatologyAnomalies);
+</script>
+
+
+<script>
+
+  // eighth Vertical Profile Graph
+
+  let profileChart;
+
+  function updateProfileYearLabel(val) {
+    document.getElementById("profile-year-value").textContent = val;
+  }
+
+  function updateProfile() {
+    const region = document.getElementById("profile-region-select").value;
+    const year = document.getElementById("profile-year-slider").value;
+    loadProfile(region, year);
+  }
+
+  function loadProfile(region, year) {
+    fetch(`/api/vertical_profile?region=${region}&year=${year}`)
+      .then(res => res.json())
+      .then(data => {
+        const ctx = document.getElementById('profileChart').getContext('2d');
+        if (profileChart) profileChart.destroy();
+
+        profileChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.depth,
+            datasets: [
+              {
+                label: "Temperature (°C)",
+                data: data.temp,
+                borderColor: "red",
+                yAxisID: 'y',
+              },
+              {
+                label: "Oxygen (mg/L)",
+                data: data.oxygen,
+                borderColor: "blue",
+                yAxisID: 'y1',
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { 
+                title: { display: true, text: "Depth (m)" }, 
+                reverse: true  // depth increases downward
+              },
+              y: { 
+                position: 'left', 
+                title: { display: true, text: "Temp (°C)" } 
+              },
+              y1: { 
+                position: 'right', 
+                title: { display: true, text: "Oxygen (mg/L)" }, 
+                grid: { drawOnChartArea: false } 
+              }
+            }
+          }
+        });
+      });
+  }
+
+  // ✅ Initialize with default values
+  window.addEventListener("load", function() {
+    const year = document.getElementById("profile-year-slider").value;
+    const region = document.getElementById("profile-region-select").value;
+    loadProfile(region, year);
+  });
+
+
+</script>
+
+
+
+<script>
+  function loadHovmoller() {
+    const variable = document.getElementById("hov-var").value;
+    const region = document.getElementById("hov-region").value;
+
+    document.getElementById("hovmoller-loader").style.display = "block";
+    document.getElementById("hovmollerPlot").style.display = "none";
+
+    fetch(`/api/hovmoller?var=${variable}&region=${region}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("hovmoller-loader").style.display = "none";
+        document.getElementById("hovmollerPlot").style.display = "block";
+
+        const trace = {
+          x: data.year,
+          y: data.depth,
+          z: data.values,
+          type: 'heatmap',
+          colorscale: 'RdBu',
+          reversescale: true,
+          colorbar: { title: variable.toUpperCase() }
+        };
+
+        const layout = {
+          title: `${variable.toUpperCase()} Hovmöller (${region})`,
+          xaxis: { title: 'Year' },
+          yaxis: { title: 'Depth (m)', autorange: 'reversed' },
+          margin: { t: 50, r: 40, l: 70 },
+          font: { size: 11 }
+        };
+
+        Plotly.newPlot('hovmollerPlot', [trace], layout);
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("hovmoller-loader").style.display = "none";
+        document.getElementById("hovmollerPlot").innerHTML =
+          `<p class='text-center text-danger'>Failed to load data.</p>`;
+      });
+  }
+
+  window.addEventListener("load", loadHovmoller);
+</script>
+
+
+
+<script>
+    async function updateRSI() {
+      const region = document.getElementById('regionSelect').value;
+      const w_tsi = parseFloat(document.getElementById('w_tsi').value);
+      const w_hci = parseFloat(document.getElementById('w_hci').value);
+      const w_osi = parseFloat(document.getElementById('w_osi').value);
+
+      const url = `/api/reef_stress?region=${region}&w_tsi=${w_tsi}&w_hci=${w_hci}&w_osi=${w_osi}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const years = data.years;
+
+        if (!years.length) {
+          Plotly.purge('reefStressPlot');
+          document.getElementById('reefStressPlot').innerHTML = "<p class='text-center text-muted mt-5'>No data available for this region.</p>";
+          return;
+        }
+
+        const traces = [
+          {
+            x: years,
+            y: data.TSI,
+            name: "Thermal Stress (TSI)",
+            mode: "lines+markers",
+            line: { width: 2, color: "#ff7f0e" },
+            marker: { size: 6 }
+          },
+          {
+            x: years,
+            y: data.HCI,
+            name: "Heat / Stratification (HCI)",
+            mode: "lines+markers",
+            line: { width: 2, color: "#2ca02c" },
+            marker: { size: 6 }
+          },
+          {
+            x: years,
+            y: data.OSI,
+            name: "Oxygen Stress (OSI)",
+            mode: "lines+markers",
+            line: { width: 2, color: "#1f77b4" },
+            marker: { size: 6 }
+          },
+          {
+            x: years,
+            y: data.RSI,
+            name: "Combined RSI",
+            mode: "lines+markers",
+            line: { width: 4, color: "#d62728" },
+            marker: { size: 7 }
+          }
+        ];
+
+        const layout = {
+          title: {
+            text: `Reef Stress Index (${region.toUpperCase()})`,
+            font: { size: 16 }
+          },
+          xaxis: { title: "Year" },
+          yaxis: {
+            title: "Stress Level (0 → 1)",
+            range: [0, 1],
+            gridcolor: "rgba(220,220,220,0.3)"
+          },
+          legend: { orientation: "h", y: -0.25 },
+          margin: { t: 50, r: 20, b: 60, l: 60 },
+          plot_bgcolor: "#ffffff",
+          paper_bgcolor: "transparent"
+        };
+
+        Plotly.newPlot("reefStressPlot", traces, layout, { responsive: true });
+
+      } catch (err) {
+        console.error("Failed to load RSI:", err);
+        document.getElementById('reefStressPlot').innerHTML = "<p class='text-danger text-center'>Error loading data</p>";
+      }
+    }
+
+    // auto-run on load
+    document.addEventListener("DOMContentLoaded", updateRSI);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../static/assets/js/soft-ui-dashboard.min.js?v=1.1.0"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</body>
+
+</html>
