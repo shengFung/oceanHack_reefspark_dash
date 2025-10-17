@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/logospark.png">
+  <link rel="icon" type="image/png" href="../static/assets/img/logospark.png">
+  <title>reefSpark — Litters Information</title>
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link id="pagestyle" href="../static/assets/css/soft-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+</head>
+<body class="g-sidenav-show  bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../static/assets/img/logospark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">reefSpark</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link  " href="/">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>archive</title><path d="M5,10 L40,10 L40,30 L5,30 Z M10,15 L35,15 M10,20 L35,20" fill="#000000"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">Historical Insights</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  active" href="/litters">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>litter</title><rect x="8" y="18" width="6" height="12" fill="#000000"/><rect x="20" y="14" width="6" height="16" fill="#000000"/><rect x="32" y="10" width="6" height="20" fill="#000000"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">Litters Information</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>satellite</title><circle cx="22.5" cy="20" r="10" stroke="#000000" stroke-width="2" fill="none"/><line x1="10" y1="10" x2="35" y2="30" stroke="#000000" stroke-width="2"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">Live Monitoring</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="./pages/billing.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>forecast</title><polyline points="5,30 15,20 25,25 35,15 45,20" fill="none" stroke="#000000" stroke-width="2"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">Forecast & Prediction</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Litters Information</li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+      <!-- Controls -->
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label class="form-label">Country</label>
+          <select id="filter-country" class="form-select">
+            <option value="">All Countries</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Search (beach / code)</label>
+          <input id="filter-search" class="form-control" placeholder="e.g., Bondi or MY-001">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Sort by</label>
+          <select id="filter-sort" class="form-select">
+            <option value="total">Total Litter</option>
+            <option value="avg">Avg per Survey</option>
+            <option value="name">Beach Name</option>
+            <option value="code">Beach Code</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Order</label>
+          <select id="filter-order" class="form-select">
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-lg-12">
+          <div class="card z-index-2 mb-4">
+            <div class="card-header pb-0">
+              <h6>Total vs Avg Litter per Survey (2012–2023)</h6>
+            </div>
+            <div class="card-body p-3">
+              <canvas id="litters-trend" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-6">
+          <div class="card z-index-2 mb-4">
+            <div class="card-header pb-0"><h6 id="top-beaches-title">Top Beaches by Total Litter</h6></div>
+            <div class="card-body p-3">
+              <canvas id="litters-top" height="280"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card z-index-2 mb-4">
+            <div class="card-header pb-0"><h6>Beaches (Sortable Table)</h6></div>
+            <div class="card-body p-3">
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th>Country</th>
+                      <th>Beach</th>
+                      <th>Code</th>
+                      <th class="text-end">Total</th>
+                      <th class="text-end">Surveys</th>
+                      <th class="text-end">Avg/Survey</th>
+                    </tr>
+                  </thead>
+                  <tbody id="litters-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-12">
+          <div class="card z-index-2 mb-4">
+            <div class="card-header pb-0"><h6>Predicted Litter (2024–2028)</h6></div>
+            <div class="card-body p-3">
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th>Country</th>
+                      <th>Beach</th>
+                      <th>Code</th>
+                      <th class="text-end">Slope</th>
+                      <th class="text-end">Intercept</th>
+                      <th class="text-center">Trend (2024-2028)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="litters-pred-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Core JS files (match index.html) -->
+  <script src="../static/assets/js/core/popper.min.js"></script>
+  <script src="../static/assets/js/core/bootstrap.min.js"></script>
+  <script src="../static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../static/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../static/assets/js/plugins/chartjs.min.js"></script>
+
+  <!-- Soft UI main script -->
+  <script src="../static/assets/js/soft-ui-dashboard.min.js?v=1.1.0"></script>
+
+  <script>
+    async function fetchJSON(url){
+      const r = await fetch(url);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    }
+
+    function buildQuery(){
+      const country = document.getElementById('filter-country').value;
+      const search = document.getElementById('filter-search').value.trim();
+      const sort = document.getElementById('filter-sort').value;
+      const order = document.getElementById('filter-order').value;
+      const params = new URLSearchParams();
+      if(country) params.set('country', country);
+      if(search) params.set('search', search);
+      if(sort) params.set('sort', sort);
+      if(order) params.set('order', order);
+      return params.toString();
+    }
+
+    async function loadCountries(){
+      const data = await fetchJSON('/api/litters/countries');
+      const sel = document.getElementById('filter-country');
+      data.countries.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c; sel.appendChild(opt);
+      });
+    }
+
+    let trendChart, topChart;
+    async function loadLittersTrend(){
+      const q = buildQuery();
+      const data = await fetchJSON('/api/litters/trends' + (q ? ('?'+q) : ''));
+      const ctx = document.getElementById('litters-trend').getContext('2d');
+      if(trendChart) trendChart.destroy();
+      trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.years,
+          datasets: [
+            { label: 'Total Abundance', data: data.total_abund, borderColor: '#e91e63', backgroundColor: 'rgba(233,30,99,0.2)', yAxisID: 'y' },
+            { label: 'Avg per Survey', data: data.avg_abund_per_survey, borderColor: '#1e88e5', backgroundColor: 'rgba(30,136,229,0.2)', yAxisID: 'y1' }
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          stacked: false,
+          scales: {
+            y: { type: 'linear', position: 'left', title: { display: true, text: 'Total Abundance' }},
+            y1: { type: 'linear', position: 'right', title: { display: true, text: 'Average per Survey' }, grid: { drawOnChartArea: false }}
+          }
+        }
+      });
+    }
+
+    async function loadTopBeaches(){
+      const q = buildQuery();
+      const country = document.getElementById('filter-country').value;
+      const data = await fetchJSON('/api/litters/top_beaches?n=10' + (q ? ('&'+q) : ''));
+      const ctx = document.getElementById('litters-top').getContext('2d');
+      
+      // Update title based on country filter
+      const titleEl = document.getElementById('top-beaches-title');
+      if(country) {
+        titleEl.textContent = `Top Beaches by Total Litter in ${country}`;
+      } else {
+        titleEl.textContent = 'Top Beaches by Total Litter';
+      }
+      
+      if(topChart) topChart.destroy();
+      topChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [{ label: 'Total Litter', data: data.values, backgroundColor: 'rgba(76,175,80,0.6)' }]
+        },
+        options: { indexAxis: 'y', plugins: { legend: { display: false } } }
+      });
+    }
+
+    async function loadTable(page=1){
+      const q = buildQuery();
+      const data = await fetchJSON('/api/litters/rows?page='+page+'&pageSize=10' + (q ? ('&'+q) : ''));
+      const tbody = document.getElementById('litters-table-body');
+      tbody.innerHTML = '';
+      data.rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.country || ''}</td>
+          <td>${r.beachname || ''}</td>
+          <td>${r.beachcode || ''}</td>
+          <td class="text-end">${r.total_abund?.toLocaleString() || '-'}</td>
+          <td class="text-end">${r.total_survey?.toLocaleString() || '-'}</td>
+          <td class="text-end">${(r.avg_per_survey!=null? r.avg_per_survey.toFixed(3): '-')}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    let predChart = null;
+    
+    function createSparkline(preds) {
+      if (!preds || preds.length === 0) return '<span class="text-muted">—</span>';
+      
+      // Filter out null values and get min/max for color scaling
+      const validPreds = preds.filter(p => p !== null);
+      if (validPreds.length === 0) return '<span class="text-muted">—</span>';
+      
+      const min = Math.min(...validPreds);
+      const max = Math.max(...validPreds);
+      const range = max - min || 1;
+      
+      // Create sparkline with colored dots in a contained wrapper
+      let html = '<div style="display:flex; gap:8px; justify-content:center; align-items:center; height:40px; position:relative;">';
+      
+      preds.forEach((val, idx) => {
+        if (val === null) {
+          html += '<span style="width:18px; height:18px; display:inline-block; background:#ddd; border-radius:50%; flex-shrink:0;"></span>';
+        } else {
+          // Normalize to 0-1, then map to color intensity
+          const normalized = (val - min) / range;
+          const intensity = Math.round(normalized * 200); // 0-200 range for color
+          const color = `rgb(${255-intensity}, ${100}, ${50+intensity})`; // Red-orange gradient
+          
+          // Calculate vertical position within container (max 10px up/down)
+          const verticalOffset = (normalized - 0.5) * 20; // -10 to +10px
+          
+          html += `<span style="width:18px; height:18px; display:inline-block; background:${color}; border-radius:50%; position:relative; top:${-verticalOffset}px; flex-shrink:0; cursor:help;" title="Year ${2024+idx}: ${val.toLocaleString()}"></span>`;
+        }
+      });
+      
+      html += '</div>';
+      return html;
+    }
+
+    async function loadPredictions(page=1){
+      const q = buildQuery();
+      const data = await fetchJSON('/api/litters/predictions?page='+page+'&pageSize=10' + (q ? ('&'+q) : ''));
+      const tbody = document.getElementById('litters-pred-table-body');
+      tbody.innerHTML = '';
+      data.rows.forEach(r => {
+        const tr = document.createElement('tr');
+        
+        // Create cells
+        const tdCountry = document.createElement('td');
+        tdCountry.textContent = r.country || '';
+        
+        const tdBeach = document.createElement('td');
+        tdBeach.textContent = r.beachname || '';
+        
+        const tdCode = document.createElement('td');
+        tdCode.textContent = r.beachcode || '';
+        
+        const tdSlope = document.createElement('td');
+        tdSlope.className = 'text-end';
+        tdSlope.textContent = r.slope != null ? r.slope.toFixed(3) : '-';
+        
+        const tdIntercept = document.createElement('td');
+        tdIntercept.className = 'text-end';
+        tdIntercept.textContent = r.intercept != null ? r.intercept.toFixed(3) : '-';
+        
+        // Create sparkline cell
+        const tdSparkline = document.createElement('td');
+        tdSparkline.className = 'text-center';
+        
+        if (!r.preds || r.preds.length === 0) {
+          tdSparkline.innerHTML = '<span class="text-muted">—</span>';
+        } else {
+          const validPreds = r.preds.filter(p => p !== null);
+          if (validPreds.length === 0) {
+            tdSparkline.innerHTML = '<span class="text-muted">—</span>';
+          } else {
+            const min = Math.min(...validPreds);
+            const max = Math.max(...validPreds);
+            const range = max - min || 1;
+            
+            const container = document.createElement('div');
+            container.style.cssText = 'display:flex; gap:8px; justify-content:center; align-items:center; height:40px; position:relative;';
+            
+            r.preds.forEach((val, idx) => {
+              const dot = document.createElement('span');
+              dot.style.cssText = 'width:18px; height:18px; display:inline-block; border-radius:50%; flex-shrink:0;';
+              
+              if (val === null) {
+                dot.style.background = '#ddd';
+              } else {
+                const normalized = (val - min) / range;
+                // Gradient from yellow (low) to dark blue (high)
+                const r = Math.round(255 - (normalized * 255)); // 255 -> 0
+                const g = Math.round(255 - (normalized * 155)); // 255 -> 100
+                const b = Math.round(100 + (normalized * 139)); // 100 -> 239
+                const color = `rgb(${r}, ${g}, ${b})`;
+                const verticalOffset = (normalized - 0.5) * 20;
+                
+                dot.style.background = color;
+                dot.style.position = 'relative';
+                dot.style.top = `${-verticalOffset}px`;
+                dot.style.cursor = 'help';
+                dot.title = `Year ${2024+idx}: ${val.toLocaleString()}`;
+              }
+              
+              container.appendChild(dot);
+            });
+            
+            tdSparkline.appendChild(container);
+          }
+        }
+        
+        tr.appendChild(tdCountry);
+        tr.appendChild(tdBeach);
+        tr.appendChild(tdCode);
+        tr.appendChild(tdSlope);
+        tr.appendChild(tdIntercept);
+        tr.appendChild(tdSparkline);
+        
+        tbody.appendChild(tr);
+      });
+    }
+
+    (async () => {
+      try {
+        await loadCountries();
+  const onChange = () => { loadLittersTrend(); loadTopBeaches(); loadTable(); loadPredictions(); };
+        document.getElementById('filter-country').addEventListener('change', onChange);
+        document.getElementById('filter-search').addEventListener('input', () => { clearTimeout(window.__searchTimer); window.__searchTimer = setTimeout(onChange, 400); });
+        document.getElementById('filter-sort').addEventListener('change', onChange);
+        document.getElementById('filter-order').addEventListener('change', onChange);
+  await loadLittersTrend();
+  await loadTopBeaches();
+  await loadTable();
+  await loadPredictions();
+      } catch(e) {
+        console.error(e);
+      }
+    })();
+  </script>
+</body>
+</html>
