@@ -825,7 +825,7 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
 
         fetch(`/api/trends?${query}`)
           .then(res => res.json())
-          .then data => {
+          .then(data => {
             const ctx3 = document.getElementById("chart-line2").getContext("2d");
 
             if (trendChart2) trendChart2.destroy();
@@ -1039,6 +1039,9 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
     fetch(`/api/ts_scatter_by_year?${query}`)
       .then(res => res.json())
       .then(data => {
+        console.log('T-S Data received:', data);
+        console.log('Number of points:', data.temp ? data.temp.length : 0);
+        
         const ctx = document.getElementById("chart-ts").getContext("2d");
 
         const points = data.temp.map((temp, i) => ({
@@ -1047,6 +1050,8 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
           r: 3,
           backgroundColor: getDepthColor(data.depth[i])
         }));
+
+        console.log('Points created:', points.length);
 
         if (tsChart) tsChart.destroy();
 
@@ -1083,6 +1088,9 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
             }
           }
         });
+      })
+      .catch(error => {
+        console.error('Error loading T-S data:', error);
       });
   }
 
@@ -1277,10 +1285,10 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
   const regionBoundCA = {
         global:  { lat_min: -90, lat_max: 90, lon_min: -180, lon_max: 180 },
         tropics: { lat_min: -23, lat_max: 23, lon_min: -180, lon_max: 180 },
-        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon-max: 180 },
-        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon-max: 180 },
-        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon-max: 120 },
-        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon-max: -100 }
+        arctic:  { lat_min: 66,  lat_max: 90, lon_min: -180, lon_max: 180 },
+        antarctic: { lat_min: -90, lat_max: -66, lon_min: -180, lon_max: 180 },
+        indian:  { lat_min: -30, lat_max: 30, lon_min: 20, lon_max: 120 },
+        pacific: { lat_min: -30, lat_max: 30, lon_min: 120, lon_max: -100 }
       };
 
 

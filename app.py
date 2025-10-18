@@ -69,13 +69,20 @@ def forecast_trends():
     b = region_bounds.get(region, region_bounds['global'])
 
     # Filter data by region
-    for df in [df_temp, df_oxy, df_sal]:
-        if b['lon_min'] < b['lon_max']:
-            df = df[(df['lat'].between(b['lat_min'], b['lat_max'])) &
-                    (df['lon'].between(b['lon_min'], b['lon_max']))]
-        else:
-            df = df[(df['lat'].between(b['lat_min'], b['lat_max'])) &
-                    ((df['lon'] >= b['lon_min']) | (df['lon'] <= b['lon_max']))]
+    if b['lon_min'] < b['lon_max']:
+        df_temp = df_temp[(df_temp['lat'].between(b['lat_min'], b['lat_max'])) &
+                          (df_temp['lon'].between(b['lon_min'], b['lon_max']))]
+        df_oxy = df_oxy[(df_oxy['lat'].between(b['lat_min'], b['lat_max'])) &
+                        (df_oxy['lon'].between(b['lon_min'], b['lon_max']))]
+        df_sal = df_sal[(df_sal['lat'].between(b['lat_min'], b['lat_max'])) &
+                        (df_sal['lon'].between(b['lon_min'], b['lon_max']))]
+    else:
+        df_temp = df_temp[(df_temp['lat'].between(b['lat_min'], b['lat_max'])) &
+                          ((df_temp['lon'] >= b['lon_min']) | (df_temp['lon'] <= b['lon_max']))]
+        df_oxy = df_oxy[(df_oxy['lat'].between(b['lat_min'], b['lat_max'])) &
+                        ((df_oxy['lon'] >= b['lon_min']) | (df_oxy['lon'] <= b['lon_max']))]
+        df_sal = df_sal[(df_sal['lat'].between(b['lat_min'], b['lat_max'])) &
+                        ((df_sal['lon'] >= b['lon_min']) | (df_sal['lon'] <= b['lon_max']))]
 
     # Work with historical data (1800-1940)
     df_temp = df_temp[(df_temp['year'] >= 1800) & (df_temp['year'] <= 1940)]
@@ -502,16 +509,47 @@ def trends():
     df_sal['time'] = pd.to_datetime(df_sal['time'])
     df_sal['year'] = df_sal['time'].dt.year
 
-    # Get region from query string
-    lat_min = float(request.args.get('lat_min', -90))
-    lat_max = float(request.args.get('lat_max', 90))
-    lon_min = float(request.args.get('lon_min', -180))
-    lon_max = float(request.args.get('lon_max', 180))
+    # Get region from query string (support both named regions and custom bounds)
+    region = request.args.get('region', 'global')
+    
+    # Define region bounds
+    region_bounds = {
+        'global':     {'lat_min': -90, 'lat_max': 90, 'lon_min': -180, 'lon_max': 180},
+        'tropics':    {'lat_min': -23, 'lat_max': 23, 'lon_min': -180, 'lon_max': 180},
+        'arctic':     {'lat_min': 66,  'lat_max': 90, 'lon_min': -180, 'lon_max': 180},
+        'antarctic':  {'lat_min': -90, 'lat_max': -66,'lon_min': -180, 'lon_max': 180},
+        'indian':     {'lat_min': -30, 'lat_max': 30, 'lon_min': 20,   'lon_max': 120},
+        'pacific':    {'lat_min': -30, 'lat_max': 30, 'lon_min': 120,  'lon_max': -100}
+    }
+    
+    # Get bounds from region or use custom parameters
+    if region in region_bounds:
+        b = region_bounds[region]
+    else:
+        # Fallback to custom lat/lon parameters (for backwards compatibility)
+        b = {
+            'lat_min': float(request.args.get('lat_min', -90)),
+            'lat_max': float(request.args.get('lat_max', 90)),
+            'lon_min': float(request.args.get('lon_min', -180)),
+            'lon_max': float(request.args.get('lon_max', 180))
+        }
 
-    # Filter by selected region
-    df_temp = df_temp[(df_temp['lat'].between(lat_min, lat_max)) & (df_temp['lon'].between(lon_min, lon_max))]
-    df_oxy = df_oxy[(df_oxy['lat'].between(lat_min, lat_max)) & (df_oxy['lon'].between(lon_min, lon_max))]
-    df_sal = df_sal[(df_sal['lat'].between(lat_min, lat_max)) & (df_sal['lon'].between(lon_min, lon_max))]
+    # Filter by selected region (handle Pacific dateline wrap-around)
+    if b['lon_min'] < b['lon_max']:
+        df_temp = df_temp[(df_temp['lat'].between(b['lat_min'], b['lat_max'])) & 
+                          (df_temp['lon'].between(b['lon_min'], b['lon_max']))]
+        df_oxy = df_oxy[(df_oxy['lat'].between(b['lat_min'], b['lat_max'])) & 
+                        (df_oxy['lon'].between(b['lon_min'], b['lon_max']))]
+        df_sal = df_sal[(df_sal['lat'].between(b['lat_min'], b['lat_max'])) & 
+                        (df_sal['lon'].between(b['lon_min'], b['lon_max']))]
+    else:
+        # Pacific crosses dateline
+        df_temp = df_temp[(df_temp['lat'].between(b['lat_min'], b['lat_max'])) & 
+                          ((df_temp['lon'] >= b['lon_min']) | (df_temp['lon'] <= b['lon_max']))]
+        df_oxy = df_oxy[(df_oxy['lat'].between(b['lat_min'], b['lat_max'])) & 
+                        ((df_oxy['lon'] >= b['lon_min']) | (df_oxy['lon'] <= b['lon_max']))]
+        df_sal = df_sal[(df_sal['lat'].between(b['lat_min'], b['lat_max'])) & 
+                        ((df_sal['lon'] >= b['lon_min']) | (df_sal['lon'] <= b['lon_max']))]
 
     yearly_temp = df_temp.groupby('year').agg({
         'surface_temp': 'mean'

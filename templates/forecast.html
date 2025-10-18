@@ -41,7 +41,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="/litters">
+          <a class="nav-link" href="/litters">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>litter</title><rect x="8" y="18" width="6" height="12" fill="#000000"/><rect x="20" y="14" width="6" height="16" fill="#000000"/><rect x="32" y="10" width="6" height="20" fill="#000000"/></svg>
             </div>
@@ -57,7 +57,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/live-monitor">
+          <a class="nav-link" href="/live-monitor">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>satellite</title><circle cx="22.5" cy="20" r="10" stroke="#000000" stroke-width="2" fill="none"/><line x1="10" y1="10" x2="35" y2="30" stroke="#000000" stroke-width="2"/></svg>
             </div>
@@ -65,7 +65,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/forecast">
+          <a class="nav-link active" href="/forecast">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg"><title>forecast</title><polyline points="5,30 15,20 25,25 35,15 45,20" fill="none" stroke="#000000" stroke-width="2"/></svg>
             </div>
@@ -564,6 +564,56 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+
+  <!-- Floating Simek Chatbot Button -->
+  <a href="/simek" id="simek-float-btn" style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: transparent; box-shadow: 0 4px 20px rgba(121, 40, 202, 0.4); display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 1000; transition: all 0.3s ease; animation: pulse 2s infinite;">
+    <img src="/static/media/AiPFPWh.png" alt="Simek AI" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+  </a>
+  
+  <div id="simek-tooltip" style="position: fixed; bottom: 100px; right: 30px; background: white; padding: 12px 16px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 999; max-width: 200px;">
+    <strong style="color: #7928CA;">Simek AI</strong>
+    <p style="margin: 5px  0 0 0; font-size: 13px; color: #666;">Your AI assistant for reef health insights. Ask me about environmental data and predictions!</p>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(121, 40, 202, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(121, 40, 202, 0.6);
+      }
+    }
+
+    #simek-float-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(121, 40, 202, 0.6);
+    }
+
+    #simek-float-btn:hover + #simek-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+
+  <script>
+    // Show tooltip on hover
+    const floatBtn = document.getElementById('simek-float-btn');
+    const tooltip = document.getElementById('simek-tooltip');
+    
+    floatBtn.addEventListener('mouseenter', () => {
+      tooltip.style.opacity = '1';
+      tooltip.style.visibility = 'visible';
+    });
+    
+    floatBtn.addEventListener('mouseleave', () => {
+      tooltip.style.opacity = '0';
+      tooltip.style.visibility = 'hidden';
+    });
+  </script>
+
 </body>
 
 </html>
