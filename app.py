@@ -31,6 +31,10 @@ def litters_page():
 def simek_page():
     return render_template('simek.html')
 
+@app.route('/live-monitor')
+def live_monitor():
+    return render_template('live_monitor.html')
+
 @app.route('/api/litters/trends')
 def litters_trends():
     """Return yearly totals and averages across all beaches.

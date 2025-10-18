@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/logospark.png">
+  <link rel="icon" type="image/png" href="../static/assets/img/logospark.png">
+  <title>Live Monitor - reefSpark</title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../static/assets/css/soft-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <style>
+    .dashboard-plane {
+      background: #fff;
+      border: 2px dashed #d2d6da;
+      border-radius: 1rem;
+      min-height: 250px;
+      max-height: 300px;
+      padding: 1rem;
+      position: relative;
+    }
+    .compartment-item {
+      position: absolute;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      cursor: move;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      min-width: 120px;
+    }
+    .compartment-item img.sensor-icon {
+      width: 40px;
+      height: 40px;
+      display: block;
+      margin: 0 auto 0.3rem auto;
+      opacity: 0.9;
+    }
+    .compartment-item i {
+      font-size: 0.9rem;
+    }
+    .compartment-item strong {
+      color: white;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .compartment-item .text-xs {
+      color: white !important;
+      font-weight: 600;
+      font-size: 0.65rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      opacity: 1 !important;
+    }
+    .compartment-item .btn {
+      color: #344767 !important;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.7rem;
+    }
+    .compartment-card {
+      background: #fff;
+      border-radius: 0.5rem;
+      padding: 0.6rem;
+      margin-bottom: 0.6rem;
+      cursor: grab;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .compartment-card i {
+      font-size: 1rem;
+    }
+    .compartment-card strong {
+      font-size: 0.8rem;
+    }
+    .compartment-card .text-xs {
+      font-size: 0.7rem;
+    }
+    .compartment-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .compartment-card:active {
+      cursor: grabbing;
+    }
+  </style>
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="/">
+        <img src="../static/assets/img/logospark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">reefSpark</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>archive</title>
+                <path d="M5,10 L40,10 L40,30 L5,30 Z M10,15 L35,15 M10,20 L35,20" fill="#000000"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Historical Insights</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/litters">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>litter</title>
+                <rect x="8" y="18" width="6" height="12" fill="#000000"/>
+                <rect x="20" y="14" width="6" height="16" fill="#000000"/>
+                <rect x="32" y="10" width="6" height="20" fill="#000000"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Litters Information</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/simek">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="../static/media/simekIcon.png" alt="Simek" style="width: 32px; height: 32px; object-fit: contain;">
+            </div>
+            <span class="nav-link-text ms-1">Simek</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/live-monitor">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>satellite</title>
+                <circle cx="22.5" cy="20" r="10" stroke="#000000" stroke-width="2" fill="none"/>
+                <line x1="10" y1="10" x2="35" y2="30" stroke="#000000" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Live Monitor</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./pages/billing.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
+                <title>forecast</title>
+                <polyline points="5,30 15,20 25,25 35,15 45,20" fill="none" stroke="#000000" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Forecast & Prediction</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="/">Dashboard</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Live Monitor</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">Live Ocean Monitoring</h6>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+      <!-- Collaboration Info -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-xs mb-1 text-uppercase font-weight-bold text-muted">Live Collaboration Platform</p>
+                    <h5 class="font-weight-bolder text-dark mb-2">
+                      Real-time Ocean Monitoring
+                    </h5>
+                    <p class="mb-0 text-secondary text-sm">
+                      Universities and individuals can send live ocean data directly to ReefSpark. Drag and drop sensors onto the dashboard plane to build your monitoring setup and view real-time data.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-light shadow text-center border-radius-md" style="width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin-left: auto;">
+                    <img src="../static/assets/img/logospark.png" alt="ReefSpark Logo" style="width: 48px; height: 48px; object-fit: contain;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Plane and Compartments -->
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="card">
+            <div class="card-header pb-0 px-3 pt-2">
+              <h6 class="mb-0" style="font-size: 0.85rem;">Dashboard Plane</h6>
+              <p class="text-xs mb-1" style="font-size: 0.7rem;">Drag sensors here to monitor</p>
+            </div>
+            <div class="card-body p-2">
+              <div class="dashboard-plane" id="dashboard-plane" style="position: relative;">
+                <img src="../static/media/drone.jpg" alt="Drone" id="placeholder-drone" style="position: absolute; left: 150px; top: 50%; transform: translateY(-50%); width: 140px; height: auto; opacity: 0.5; pointer-events: none;">
+                <img src="../static/media/buoy.png" alt="Buoy" id="placeholder-buoy" style="position: absolute; right: 150px; top: 50%; transform: translateY(-50%); width: 120px; height: auto; opacity: 0.5; pointer-events: none;">
+                <div id="placeholder-text" style="text-align: center; margin-top: 70px;">
+                  <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 0.3rem;">Drag and drop sensors here to start monitoring</p>
+                  <p class="text-dark" style="font-size: 0.85rem; font-weight: 700; margin: 0;">This plane acts as drone or buoy station</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="card">
+            <div class="card-header pb-0 px-3 pt-2">
+              <h6 class="mb-0" style="font-size: 0.85rem;">Available Sensors</h6>
+              <p class="text-xs mb-1" style="font-size: 0.7rem;">Drag to plane</p>
+            </div>
+            <div class="card-body p-2">
+              <div class="compartment-card" draggable="true" data-type="temp-sensor">
+                <i class="fas fa-thermometer-half text-danger"></i>
+                <strong class="d-block">Temp Sensor</strong>
+                <span class="text-xs text-muted">Measures temperature</span>
+              </div>
+              <div class="compartment-card" draggable="true" data-type="sal-sensor">
+                <i class="fas fa-water text-primary"></i>
+                <strong class="d-block">Salinity Sensor</strong>
+                <span class="text-xs text-muted">Measures salinity</span>
+              </div>
+              <div class="compartment-card" draggable="true" data-type="oxy-sensor">
+                <i class="fas fa-wind text-success"></i>
+                <strong class="d-block">Oxygen Sensor</strong>
+                <span class="text-xs text-muted">Measures O₂ levels</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Data Visualization -->
+      <div class="row mt-2">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header pb-0 px-3 pt-2">
+              <h6 class="mb-0" style="font-size: 0.85rem;">Live Data Stream</h6>
+              <p class="text-xs mb-1" style="font-size: 0.7rem;">Real-time oceanographic data</p>
+            </div>
+            <div class="card-body p-2">
+              <div class="row g-2" id="live-data-cards">
+                <div class="col-lg-4 col-md-6" id="temp-card" style="display: none;">
+                  <div class="card bg-gradient-info mb-0">
+                    <div class="card-body p-2" style="padding: 0.5rem !important;">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <i class="fas fa-thermometer-half text-white opacity-10" style="font-size: 1rem;"></i>
+                        </div>
+                        <div class="ms-auto text-end">
+                          <p class="text-white mb-0" style="font-size: 0.7rem;">Temperature</p>
+                          <h6 class="text-white mb-0" style="font-size: 0.9rem; font-weight: 700;" id="live-temp">--°C</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6" id="sal-card" style="display: none;">
+                  <div class="card bg-gradient-primary mb-0">
+                    <div class="card-body p-2" style="padding: 0.5rem !important;">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <i class="fas fa-water text-white opacity-10" style="font-size: 1rem;"></i>
+                        </div>
+                        <div class="ms-auto text-end">
+                          <p class="text-white mb-0" style="font-size: 0.7rem;">Salinity</p>
+                          <h6 class="text-white mb-0" style="font-size: 0.9rem; font-weight: 700;" id="live-sal">-- PSU</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6" id="oxy-card" style="display: none;">
+                  <div class="card bg-gradient-success mb-0">
+                    <div class="card-body p-2" style="padding: 0.5rem !important;">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <i class="fas fa-wind text-white opacity-10" style="font-size: 1rem;"></i>
+                        </div>
+                        <div class="ms-auto text-end">
+                          <p class="text-white mb-0" style="font-size: 0.7rem;">Oxygen</p>
+                          <h6 class="text-white mb-0" style="font-size: 0.9rem; font-weight: 700;" id="live-oxy">-- mg/L</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="no-sensors-message" class="text-center text-muted my-1">
+                <i class="fas fa-info-circle" style="font-size: 1.2rem;"></i>
+                <p class="text-xs mb-0" style="font-size: 0.7rem;">Add sensors to the dashboard plane above to see live data</p>
+              </div>
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div id="live-chart" style="height: 300px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Core JS Files -->
+  <script src="../static/assets/js/core/popper.min.js"></script>
+  <script src="../static/assets/js/core/bootstrap.min.js"></script>
+  <script src="../static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../static/assets/js/soft-ui-dashboard.min.js?v=1.1.0"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+  <script>
+    let compartmentCounter = 0;
+    let draggedElement = null;
+    let activeSensors = new Set();
+
+    // Drag start from compartment cards
+    document.querySelectorAll('.compartment-card').forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        draggedElement = {
+          type: card.getAttribute('data-type'),
+          html: card.innerHTML
+        };
+        e.dataTransfer.effectAllowed = 'copy';
+      });
+    });
+
+    // Dashboard plane drop zone
+    const plane = document.getElementById('dashboard-plane');
+    
+    plane.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    });
+
+    plane.addEventListener('drop', (e) => {
+      e.preventDefault();
+      
+      if (!draggedElement) return;
+      
+      // Check if sensor already exists on dashboard
+      if (activeSensors.has(draggedElement.type)) {
+        // Show alert
+        showAlert('This sensor is already on the dashboard!');
+        draggedElement = null;
+        return;
+      }
+      
+      // Remove placeholder content (text, images) only if they exist
+      const placeholderText = document.getElementById('placeholder-text');
+      if (placeholderText) placeholderText.remove();
+      const droneImg = document.getElementById('placeholder-drone');
+      if (droneImg) droneImg.remove();
+      const buoyImg = document.getElementById('placeholder-buoy');
+      if (buoyImg) buoyImg.remove();
+      
+      // Create compartment item
+      const item = document.createElement('div');
+      item.className = 'compartment-item';
+      item.id = `comp-${compartmentCounter++}`;
+      item.setAttribute('data-sensor-type', draggedElement.type);
+      
+      // Add sensor image based on type
+      let sensorImage = '';
+      if (draggedElement.type === 'temp-sensor') {
+        sensorImage = '<img src="../static/media/tempSensor.png" alt="Temp Sensor" class="sensor-icon">';
+      } else if (draggedElement.type === 'sal-sensor') {
+        sensorImage = '<img src="../static/media/salSensor.png" alt="Salinity Sensor" class="sensor-icon">';
+      } else if (draggedElement.type === 'oxy-sensor') {
+        sensorImage = '<img src="../static/media/oxygenSensor.png" alt="Oxygen Sensor" class="sensor-icon">';
+      }
+      
+      item.innerHTML = sensorImage + draggedElement.html + '<br><button class="btn btn-sm btn-white mt-2" onclick="removeCompartment(\'' + item.id + '\')">Remove</button>';
+      
+      // Position at drop location
+      const rect = plane.getBoundingClientRect();
+      item.style.left = (e.clientX - rect.left - 75) + 'px';
+      item.style.top = (e.clientY - rect.top - 40) + 'px';
+      
+      // Make draggable within plane
+      makeDraggable(item);
+      
+      plane.appendChild(item);
+      
+      // Add sensor to active list
+      activeSensors.add(draggedElement.type);
+      updateVisibleSensors();
+      
+      draggedElement = null;
+    });
+
+    function makeDraggable(element) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      
+      element.onmousedown = dragMouseDown;
+      
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+      
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        
+        // Calculate new position
+        let newTop = element.offsetTop - pos2;
+        let newLeft = element.offsetLeft - pos1;
+        
+        // Get boundaries
+        const planeRect = plane.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        
+        // Constrain within plane boundaries
+        const minTop = 0;
+        const maxTop = plane.offsetHeight - element.offsetHeight;
+        const minLeft = 0;
+        const maxLeft = plane.offsetWidth - element.offsetWidth;
+        
+        // Apply constraints
+        newTop = Math.max(minTop, Math.min(newTop, maxTop));
+        newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+        
+        element.style.top = newTop + 'px';
+        element.style.left = newLeft + 'px';
+      }
+      
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    function removeCompartment(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        const sensorType = element.getAttribute('data-sensor-type');
+        element.remove();
+        
+        // Check if this was the last sensor of this type
+        const remainingSensors = Array.from(plane.querySelectorAll('.compartment-item'))
+          .filter(item => item.getAttribute('data-sensor-type') === sensorType);
+        
+        if (remainingSensors.length === 0) {
+          activeSensors.delete(sensorType);
+        }
+        
+        updateVisibleSensors();
+      }
+      
+      // Add placeholder back if empty
+      if (plane.children.length === 0) {
+        plane.innerHTML = '<img src="../static/media/drone.jpg" alt="Drone" id="placeholder-drone" style="position: absolute; left: 150px; top: 50%; transform: translateY(-50%); width: 140px; height: auto; opacity: 0.5; pointer-events: none;"><img src="../static/media/buoy.png" alt="Buoy" id="placeholder-buoy" style="position: absolute; right: 150px; top: 50%; transform: translateY(-50%); width: 120px; height: auto; opacity: 0.5; pointer-events: none;"><div id="placeholder-text" style="text-align: center; margin-top: 70px;"><p class="text-muted" style="font-size: 0.75rem; margin-bottom: 0.3rem;">Drag and drop sensors here to start monitoring</p><p class="text-dark" style="font-size: 0.85rem; font-weight: 700; margin: 0;">This plane acts as drone or buoy station</p></div>';
+      }
+    }
+
+    function updateVisibleSensors() {
+      const hasTemp = activeSensors.has('temp-sensor');
+      const hasSal = activeSensors.has('sal-sensor');
+      const hasOxy = activeSensors.has('oxy-sensor');
+      
+      document.getElementById('temp-card').style.display = hasTemp ? 'block' : 'none';
+      document.getElementById('sal-card').style.display = hasSal ? 'block' : 'none';
+      document.getElementById('oxy-card').style.display = hasOxy ? 'block' : 'none';
+      
+      const noSensorsMsg = document.getElementById('no-sensors-message');
+      if (hasTemp || hasSal || hasOxy) {
+        noSensorsMsg.style.display = 'none';
+      } else {
+        noSensorsMsg.style.display = 'block';
+      }
+    }
+
+    function showAlert(message) {
+      // Create alert element
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-warning alert-dismissible fade show position-fixed';
+      alert.style.cssText = 'top: 80px; right: 20px; z-index: 9999; min-width: 300px;';
+      alert.innerHTML = `
+        <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span>
+        <span class="alert-text"><strong>Warning!</strong> ${message}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      `;
+      
+      document.body.appendChild(alert);
+      
+      // Auto remove after 3 seconds
+      setTimeout(() => {
+        alert.classList.remove('show');
+        setTimeout(() => alert.remove(), 150);
+      }, 3000);
+    }
+
+    // Live data simulation
+    let timeData = [];
+    let tempData = [];
+    let salData = [];
+    let oxyData = [];
+
+    function updateLiveData() {
+      const now = new Date();
+      const temp = (22 + Math.random() * 3).toFixed(2);
+      const sal = (35 + Math.random() * 2).toFixed(2);
+      const oxy = (6 + Math.random() * 1.5).toFixed(2);
+      
+      // Only update data for active sensors
+      if (activeSensors.has('temp-sensor')) {
+        document.getElementById('live-temp').textContent = temp + '°C';
+        tempData.push(parseFloat(temp));
+      }
+      if (activeSensors.has('sal-sensor')) {
+        document.getElementById('live-sal').textContent = sal + ' PSU';
+        salData.push(parseFloat(sal));
+      }
+      if (activeSensors.has('oxy-sensor')) {
+        document.getElementById('live-oxy').textContent = oxy + ' mg/L';
+        oxyData.push(parseFloat(oxy));
+      }
+      
+      // Update chart data only if we have active sensors
+      if (activeSensors.size > 0) {
+        timeData.push(now);
+        
+        // Keep only last 20 points
+        if (timeData.length > 20) {
+          timeData.shift();
+          if (tempData.length > 20) tempData.shift();
+          if (salData.length > 20) salData.shift();
+          if (oxyData.length > 20) oxyData.shift();
+        }
+        
+        updateChart();
+      }
+    }
+
+    function updateChart() {
+      if (activeSensors.size === 0) {
+        document.getElementById('live-chart').innerHTML = '<p class="text-muted text-center" style="padding: 100px 0;">Add sensors to the dashboard to see live chart data</p>';
+        return;
+      }
+      
+      const traces = [];
+      
+      if (activeSensors.has('temp-sensor') && tempData.length > 0) {
+        traces.push({
+          x: timeData.slice(-tempData.length),
+          y: tempData,
+          name: 'Temperature (°C)',
+          type: 'scatter',
+          mode: 'lines+markers',
+          line: { color: '#5e72e4' }
+        });
+      }
+      
+      if (activeSensors.has('sal-sensor') && salData.length > 0) {
+        traces.push({
+          x: timeData.slice(-salData.length),
+          y: salData,
+          name: 'Salinity (PSU)',
+          type: 'scatter',
+          mode: 'lines+markers',
+          line: { color: '#2dce89' },
+          yaxis: traces.length > 0 ? 'y2' : 'y'
+        });
+      }
+      
+      if (activeSensors.has('oxy-sensor') && oxyData.length > 0) {
+        traces.push({
+          x: timeData.slice(-oxyData.length),
+          y: oxyData,
+          name: 'Oxygen (mg/L)',
+          type: 'scatter',
+          mode: 'lines+markers',
+          line: { color: '#fb6340' },
+          yaxis: traces.length === 2 ? 'y3' : (traces.length === 1 ? 'y2' : 'y')
+        });
+      }
+      
+      const layout = {
+        title: 'Real-time Oceanographic Data',
+        xaxis: { title: 'Time' },
+        showlegend: true,
+        legend: { orientation: 'h', y: -0.2 }
+      };
+      
+      // Configure y-axes based on active sensors
+      if (activeSensors.has('temp-sensor')) {
+        layout.yaxis = { title: 'Temperature (°C)', titlefont: {color: '#5e72e4'}, tickfont: {color: '#5e72e4'} };
+      }
+      if (activeSensors.has('sal-sensor')) {
+        if (traces.length === 1) {
+          layout.yaxis = { title: 'Salinity (PSU)', titlefont: {color: '#2dce89'}, tickfont: {color: '#2dce89'} };
+        } else {
+          layout.yaxis2 = {
+            title: 'Salinity (PSU)',
+            titlefont: {color: '#2dce89'},
+            tickfont: {color: '#2dce89'},
+            overlaying: 'y',
+            side: 'right'
+          };
+        }
+      }
+      if (activeSensors.has('oxy-sensor')) {
+        if (traces.length === 1) {
+          layout.yaxis = { title: 'Oxygen (mg/L)', titlefont: {color: '#fb6340'}, tickfont: {color: '#fb6340'} };
+        } else if (traces.length === 2) {
+          layout.yaxis2 = {
+            title: 'Oxygen (mg/L)',
+            titlefont: {color: '#fb6340'},
+            tickfont: {color: '#fb6340'},
+            overlaying: 'y',
+            side: 'right'
+          };
+        } else {
+          layout.yaxis3 = {
+            title: 'Oxygen (mg/L)',
+            titlefont: {color: '#fb6340'},
+            tickfont: {color: '#fb6340'},
+            overlaying: 'y',
+            side: 'right',
+            position: 0.95
+          };
+        }
+      }
+      
+      Plotly.newPlot('live-chart', traces, layout, {responsive: true});
+    }
+
+    // Start live data updates
+    setInterval(updateLiveData, 2000);
+    updateLiveData();
+  </script>
+</body>
+</html>
