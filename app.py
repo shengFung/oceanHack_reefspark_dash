@@ -27,9 +27,9 @@ def home():
 def litters_page():
     return render_template('litters.html')
 
-@app.route('/spark-ai')
-def spark_ai_page():
-    return render_template('spark-ai.html')
+@app.route('/simek')
+def simek_page():
+    return render_template('simek.html')
 
 @app.route('/api/litters/trends')
 def litters_trends():
@@ -847,8 +847,8 @@ def reef_stress():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """
-    Chat endpoint that uses Google Gemini AI to answer questions about the litter dataset
-    and make predictions.
+    Chat endpoint that uses Google Gemini AI to answer questions about environmental data
+    and make predictions for reef health insights.
     """
     try:
         data = request.get_json()
@@ -857,7 +857,7 @@ def chat():
         if not user_message:
             return jsonify({'error': 'No message provided'}), 400
         
-        # Load litter dataset for context
+        # Load environmental dataset for context
         df = _load_litter_df()
         
         # Create dataset summary for context
@@ -886,20 +886,24 @@ Sample data (first 3 beaches):
 """
         
         # System prompt with dataset context
-        system_prompt = """You are Spark AI, an intelligent assistant for the ReefSpark Marine Litter Dashboard. 
-You help users analyze beach litter data from European beaches (2012-2023).
+        system_prompt = """You are Simek, an intelligent assistant for the ReefSpark platform. 
+ReefSpark is dedicated to predicting reef bleaching events and providing unified, clean oceanographic data insights to help protect coral reefs.
+
+You help users analyze marine data including beach litter patterns from European beaches (2012-2023), which serves as environmental indicators for reef health.
 
 Your capabilities:
-1. Answer questions about litter trends, patterns, and statistics
-2. Compare beaches and countries
-3. Make predictions using the provided slope and intercept values
-4. Explain data insights and trends
-5. Calculate statistics and aggregations
+1. Answer questions about environmental trends, patterns, and statistics related to reef health
+2. Compare data between beaches and countries to identify environmental stressors
+3. Make predictions using the provided slope and intercept values to forecast future conditions
+4. Explain data insights and trends that affect coral reef ecosystems
+5. Calculate statistics and aggregations to support reef conservation efforts
+
+Our mission: We provide unified, clean data and insights to predict and prevent reef bleaching, addressing the current lack of standardized oceanographic data.
 
 When making predictions:
 - Use the formula: predicted_value = litter_slope × year + litter_intercept
 - For example, for 2026: predicted_2026 = litter_slope × 2026 + litter_intercept
-- Explain your calculations clearly
+- Explain your calculations clearly and relate findings to reef health when relevant
 
 Be conversational, helpful, and data-driven. If you need to perform calculations, show your work.
 """

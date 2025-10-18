@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/logospark.png">
   <link rel="icon" type="image/png" href="../static/assets/img/logospark.png">
-  <title>Spark AI - reefSpark</title>
+  <title>Simek - reefSpark</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -22,7 +22,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html" target="_blank">
+      <a class="navbar-brand m-0" href="/">
         <img src="../static/assets/img/logospark.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">reefSpark</span>
       </a>
@@ -55,14 +55,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="/spark-ai">
+          <a class="nav-link active" href="/simek">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg">
-                <title>spark-ai</title>
-                <path d="M22.5,5 L27.5,15 L37.5,17.5 L30,27.5 L31.25,37.5 L22.5,32.5 L13.75,37.5 L15,27.5 L7.5,17.5 L17.5,15 Z" fill="#FFA500"/>
-              </svg>
+              <img src="../static/media/simekIcon.png" alt="Simek" style="width: 32px; height: 32px; object-fit: contain;">
             </div>
-            <span class="nav-link-text ms-1">Spark AI</span>
+            <span class="nav-link-text ms-1">Simek</span>
           </a>
         </li>
         <li class="nav-item">
@@ -99,9 +96,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="/">Dashboard</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Spark AI</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Simek</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Spark AI Chat</h6>
+          <h6 class="font-weight-bolder mb-0">Simek Chat</h6>
         </nav>
       </div>
     </nav>
@@ -112,8 +109,8 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header pb-0">
-              <h6>Chat with Spark AI</h6>
-              <p class="text-sm mb-0">Ask questions about beach litter data, trends, and predictions</p>
+              <h6>Chat with Simek</h6>
+              <p class="text-sm mb-0">Ask questions about reef health, environmental data, trends, and predictions</p>
             </div>
             <div class="card-body">
               <!-- Chat Container -->
@@ -121,17 +118,17 @@
                 <!-- Welcome Message -->
                 <div class="chat-message assistant-message mb-3">
                   <div class="d-flex align-items-start">
-                    <img src="/static/media/AiPFP.png" alt="Spark AI" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
+                    <img src="/static/media/AiPFP.png" alt="Simek" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
                     <div class="message-content" style="background: white; padding: 0.75rem; border-radius: 0.5rem; max-width: 80%;">
-                      <strong>Spark AI</strong>
-                      <p class="mb-0 mt-1">Hello! I'm Spark AI, your assistant for analyzing marine litter data. I can help you with:</p>
+                      <strong>Simek</strong>
+                      <p class="mb-0 mt-1">Hello! I'm Simek, your AI assistant for ReefSpark. We're dedicated to predicting reef bleaching and providing unified, clean environmental data insights. I can help you with:</p>
                       <ul class="mb-0 mt-1">
-                        <li>Analyzing trends and patterns in beach litter data</li>
-                        <li>Comparing statistics between beaches and countries</li>
-                        <li>Making predictions for future years</li>
-                        <li>Explaining data insights</li>
+                        <li>Analyzing environmental trends and patterns that affect reef health</li>
+                        <li>Comparing statistics between locations to identify risk factors</li>
+                        <li>Making predictions for future reef conditions</li>
+                        <li>Explaining data insights for coral reef conservation</li>
                       </ul>
-                      <p class="mb-0 mt-1">What would you like to know?</p>
+                      <p class="mb-0 mt-1">What would you like to know about reef protection?</p>
                     </div>
                   </div>
                 </div>
@@ -139,7 +136,7 @@
 
               <!-- Input Area -->
               <div class="input-group">
-                <input type="text" id="user-input" class="form-control" placeholder="Ask about litter trends, predictions, or comparisons..." onkeypress="handleKeyPress(event)">
+                <input type="text" id="user-input" class="form-control" placeholder="Ask about reef health, environmental trends, predictions, or data insights..." onkeypress="handleKeyPress(event)">
                 <button class="btn btn-primary mb-0" type="button" onclick="sendMessage()" id="send-btn">
                   <i class="fas fa-paper-plane"></i> Send
                 </button>
@@ -149,10 +146,10 @@
               <div class="mt-3">
                 <small class="text-muted">Example questions:</small>
                 <div class="mt-1">
-                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('What are the top 5 beaches with the highest litter in 2023?')">Top beaches 2023</button>
-                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Compare litter trends between Italy and Sweden')">Compare countries</button>
-                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Predict litter levels for Rullsand beach in 2026 and 2027')">Predict future</button>
-                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Which beaches show the fastest growth in litter?')">Growth trends</button>
+                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('What are the top 5 locations with highest environmental stress indicators in 2023?')">Top risk areas 2023</button>
+                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Compare environmental trends between Italy and Sweden')">Compare countries</button>
+                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Predict environmental conditions for Rullsand beach in 2026 and 2027')">Predict future conditions</button>
+                  <button class="btn btn-sm btn-outline-secondary me-1 mb-1" onclick="setQuestion('Which locations show the fastest environmental degradation?')">Degradation trends</button>
                 </div>
               </div>
             </div>
@@ -204,9 +201,9 @@
       } else {
         messageDiv.innerHTML = `
           <div class="d-flex align-items-start">
-            <img src="/static/media/AiPFP.png" alt="Spark AI" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
+            <img src="/static/media/AiPFP.png" alt="Simek" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
             <div class="message-content" style="background: white; padding: 0.75rem; border-radius: 0.5rem; max-width: 80%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-              <strong>Spark AI</strong>
+              <strong>Simek</strong>
               <div class="mb-0 mt-1">${formatResponse(content)}</div>
             </div>
           </div>
@@ -223,9 +220,9 @@
       loadingDiv.className = 'chat-message assistant-message mb-3';
       loadingDiv.innerHTML = `
         <div class="d-flex align-items-start">
-          <img src="/static/media/AiPFP.png" alt="Spark AI" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
+          <img src="/static/media/AiPFP.png" alt="Simek" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem;">
           <div class="message-content" style="background: white; padding: 0.75rem; border-radius: 0.5rem;">
-            <strong>Spark AI</strong>
+            <strong>Simek</strong>
             <p class="mb-0 mt-1">
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
               Thinking...
