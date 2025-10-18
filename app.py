@@ -1,6 +1,9 @@
 from flask import Flask, render_template, jsonify, request
 import pandas as pd
 import os
+import json
+import numpy as np
+from sklearn.linear_model import LinearRegression
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -34,6 +37,204 @@ def simek_page():
 @app.route('/live-monitor')
 def live_monitor():
     return render_template('live_monitor.html')
+
+@app.route('/forecast')
+def forecast_page():
+    return render_template('forecast.html')
+
+@app.route('/api/forecast/trends')
+def forecast_trends():
+    """Generate forecasts for temperature, oxygen, and salinity trends."""
+    df_temp = pd.read_csv("data/cleaned_surface_temp.csv")
+    df_oxy = pd.read_csv("data/cleaned_surface_oxy.csv")
+    df_sal = pd.read_csv("data/cleaned_surface_sal.csv")
+
+    region = request.args.get('region', 'global')
+    forecast_years = int(request.args.get('forecast_years', 5))
+
+    # Parse timestamps
+    for df in [df_temp, df_oxy, df_sal]:
+        df['time'] = pd.to_datetime(df['time'])
+        df['year'] = df['time'].dt.year
+
+    # Region filtering based on bounds
+    region_bounds = {
+        'global':     {'lat_min': -90, 'lat_max': 90, 'lon_min': -180, 'lon_max': 180},
+        'tropics':    {'lat_min': -23, 'lat_max': 23, 'lon_min': -180, 'lon_max': 180},
+        'arctic':     {'lat_min': 66,  'lat_max': 90, 'lon_min': -180, 'lon_max': 180},
+        'antarctic':  {'lat_min': -90, 'lat_max': -66,'lon_min': -180, 'lon_max': 180},
+        'indian':     {'lat_min': -30, 'lat_max': 30, 'lon_min': 20,   'lon_max': 120},
+        'pacific':    {'lat_min': -30, 'lat_max': 30, 'lon_min': 120,  'lon_max': -100}
+    }
+    b = region_bounds.get(region, region_bounds['global'])
+
+    # Filter data by region
+    for df in [df_temp, df_oxy, df_sal]:
+        if b['lon_min'] < b['lon_max']:
+            df = df[(df['lat'].between(b['lat_min'], b['lat_max'])) &
+                    (df['lon'].between(b['lon_min'], b['lon_max']))]
+        else:
+            df = df[(df['lat'].between(b['lat_min'], b['lat_max'])) &
+                    ((df['lon'] >= b['lon_min']) | (df['lon'] <= b['lon_max']))]
+
+    # Work with historical data (1800-1940)
+    df_temp = df_temp[(df_temp['year'] >= 1800) & (df_temp['year'] <= 1940)]
+    df_oxy = df_oxy[(df_oxy['year'] >= 1800) & (df_oxy['year'] <= 1940)]
+    df_sal = df_sal[(df_sal['year'] >= 1800) & (df_sal['year'] <= 1940)]
+    
+    # For analysis, we'll use the complete historical range
+    temp_start_year = df_temp['year'].min()
+    temp_end_year = df_temp['year'].max()
+    oxy_start_year = df_oxy['year'].min()
+    oxy_end_year = df_oxy['year'].max()
+    
+    # Calculate yearly averages
+    yearly_temp = df_temp.groupby('year')['surface_temp'].mean().reset_index()
+    yearly_oxy = df_oxy.groupby('year')['oxygen_mg_L'].mean().reset_index()
+    yearly_sal = df_sal.groupby('year')['surface_sal'].mean().reset_index()
+
+    # Generate forecasts using linear regression
+    def generate_forecast(data, periods, window_size=15):
+            """Generate forecast with smooth transition from historical data."""
+            # Prepare data
+            if len(data) > window_size:
+                historical_data = data[-window_size:]  # Use last window_size points
+                X = np.array(range(len(historical_data))).reshape(-1, 1)
+                y = historical_data.values
+            else:
+                X = np.array(range(len(data))).reshape(-1, 1)
+                y = data.values
+
+            # Fit model on historical data
+            model = LinearRegression()
+            model.fit(X, y)
+
+            # Get last historical value and trend
+            last_value = y[-1]
+            trend = model.coef_[0]
+
+            # Generate future points
+            forecast = []
+            historical_std = np.std(y)
+        
+            for i in range(periods):
+                # Calculate base prediction
+                next_value = last_value + trend * (i + 1)
+            
+                # Add decreasing noise based on historical variance
+                noise_scale = historical_std * 0.1 * (1 - i/periods)  # Reduce noise over time
+                noise = np.random.normal(0, noise_scale)
+            
+                forecast.append(next_value + noise)
+                last_value = next_value  # Update for next iteration
+
+            return forecast
+
+    # Generate future years for forecasting
+    last_year = max(yearly_temp['year'].max(),
+                    yearly_oxy['year'].max(),
+                    yearly_sal['year'].max())
+    future_years = list(range(last_year + 1, last_year + forecast_years + 1))
+
+    # Create forecasts
+    temp_forecast = generate_forecast(yearly_temp['surface_temp'], forecast_years)
+    oxy_forecast = generate_forecast(yearly_oxy['oxygen_mg_L'], forecast_years)
+    sal_forecast = generate_forecast(yearly_sal['surface_sal'], forecast_years)
+
+    return jsonify({
+        'historical': {
+            'years': yearly_temp['year'].tolist(),
+            'temperature': yearly_temp['surface_temp'].round(2).tolist(),
+            'oxygen': yearly_oxy['oxygen_mg_L'].round(2).tolist(),
+            'salinity': yearly_sal['surface_sal'].round(2).tolist()
+        },
+        'forecast': {
+            'years': future_years,
+            'temperature': [round(x, 2) for x in temp_forecast],
+            'oxygen': [round(x, 2) for x in oxy_forecast],
+            'salinity': [round(x, 2) for x in sal_forecast]
+        }
+    })
+
+
+@app.route('/api/forecast/rsi')
+def forecast_rsi():
+    """Generate forecast for Reef Stress Index (RSI) components."""
+    region = request.args.get('region', 'global')
+    forecast_years = int(request.args.get('forecast_years', 5))
+    
+    # Get historical RSI data first
+    rsi_response = reef_stress()
+    rsi_data = json.loads(rsi_response.get_data(as_text=True))
+    
+    # Prepare data for forecasting (use last N points to compute trend)
+    def make_smooth_forecast(values, periods, window=10):
+        arr = np.array(values, dtype=float)
+        if len(arr) >= window:
+            y = arr[-window:]
+        else:
+            y = arr
+
+        # x as 0..n-1
+        x = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(x, y)
+        slope = float(model.coef_[0])
+        last_val = float(y[-1])
+        hist_std = float(np.std(y)) if len(y) > 1 else 0.0
+
+        forecasts = []
+        current = last_val
+        for i in range(periods):
+            # predict next by linear step
+            next_base = current + slope
+            # noise scaled to historical variability and horizon
+            noise = np.random.normal(0, hist_std * 0.1 * (1 + i / periods))
+            next_val = next_base + noise
+            # clip to [0,1]
+            next_val = float(np.clip(next_val, 0.0, 1.0))
+            forecasts.append(next_val)
+            current = next_base
+
+        return forecasts
+
+    years = rsi_data['years']
+    rsi_values = rsi_data['RSI']
+    tsi_values = rsi_data['TSI']
+    osi_values = rsi_data['OSI']
+
+    if not years or not rsi_values or not tsi_values or not osi_values:
+        return jsonify({
+            'historical': rsi_data,
+            'forecast': {
+                'years': [],
+                'RSI': [],
+                'TSI': [],
+                'OSI': []
+            }
+        })
+
+    last_year = int(years[-1])
+    future_years = list(range(last_year + 1, last_year + forecast_years + 1))
+
+    rsi_forecast = make_smooth_forecast(rsi_values, forecast_years, window=10)
+    tsi_forecast = make_smooth_forecast(tsi_values, forecast_years, window=10)
+    osi_forecast = make_smooth_forecast(osi_values, forecast_years, window=10)
+    
+    return jsonify({
+        'historical': {
+            'years': rsi_data['years'],
+            'RSI': rsi_data['RSI'],
+            'TSI': rsi_data['TSI'],
+            'OSI': rsi_data['OSI']
+        },
+        'forecast': {
+            'years': future_years,  # <-- FIXED
+            'RSI': [round(x, 3) for x in rsi_forecast],  # <-- FIXED
+            'TSI': [round(x, 3) for x in tsi_forecast],  # <-- FIXED
+            'OSI': [round(x, 3) for x in osi_forecast]   # <-- FIXED
+        }
+    })
+
 
 @app.route('/api/litters/trends')
 def litters_trends():
