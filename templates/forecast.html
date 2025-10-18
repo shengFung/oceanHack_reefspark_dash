@@ -456,6 +456,8 @@
       const region = document.getElementById('region').value;
       const forecastYears = parseInt(document.getElementById('forecastPeriod').value);
 
+      console.log(`Updating forecasts for region: ${region}, forecast years: ${forecastYears}`);
+
       try {
         // Fetch historical data and generate forecasts (including RSI forecast)
         const [trendsResponse, rsiHistResponse, rsiForecastResponse] = await Promise.all([
@@ -467,6 +469,10 @@
         const trendsData = await trendsResponse.json();
         const rsiHist = await rsiHistResponse.json();
         const rsiFc = await rsiForecastResponse.json();
+        
+        console.log('Trends data received:', trendsData);
+        console.log('RSI historical data received:', rsiHist);
+        console.log('RSI forecast data received:', rsiFc);
 
         // Update temperature forecast
         const tempData = trendsData.temp_data;
@@ -476,13 +482,15 @@
         
         // Create a continuous line by overlapping one point
         const lastHistoricalValue = tempData[tempData.length - 1];
-        const historicalData = tempData.map((value, index) => index === tempData.length - 1 ? value : value);
+        const historicalData = [...tempData, ...Array(forecastYears).fill(null)];
         const forecastData = Array(tempLabels.length - 1).fill(null).concat([lastHistoricalValue, ...tempForecast]);
         
+        // Clear existing data and set new data
         tempChart.data.labels = [...tempLabels, ...futureYears];
         tempChart.data.datasets[0].data = historicalData;
         tempChart.data.datasets[1].data = forecastData;
-        tempChart.update();
+        console.log(`Temperature chart updated: ${tempLabels.length} historical points, ${forecastYears} forecast points`);
+        tempChart.update('none'); // Update without animation for smoother transition
 
   // Update oxygen forecast (create continuous forecast that connects to last historical point)
   const oxyData = trendsData.oxy_data;
@@ -495,7 +503,8 @@
   oxyChart.data.labels = [...oxyLabels, ...futureYears];
   oxyChart.data.datasets[0].data = oxyHistData;
   oxyChart.data.datasets[1].data = oxyFcData;
-  oxyChart.update();
+  console.log(`Oxygen chart updated: ${oxyLabels.length} historical points, ${forecastYears} forecast points`);
+  oxyChart.update('none');
 
   // Update RSI forecast: use backend forecast and connect smoothly to historical RSI
   const rsiValues = rsiHist.RSI;
@@ -514,7 +523,8 @@
   rsiChart.data.datasets[1].data = rsiFcData;
   rsiChart.data.datasets[2].data = [...rsiTsiHist, ...Array(forecastYears).fill(null)];
   rsiChart.data.datasets[3].data = [...rsiOsiHist, ...Array(forecastYears).fill(null)];
-  rsiChart.update();
+  console.log(`RSI chart updated: ${rsiLabels.length} historical points, ${forecastYears} forecast points`);
+  rsiChart.update('none');
 
       } catch (error) {
         console.error('Error updating forecasts:', error);

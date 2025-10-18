@@ -752,10 +752,16 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
         const bounds = regionBounds[selectedRegion];
 
         const query = `lat_min=${bounds.lat_min}&lat_max=${bounds.lat_max}&lon_min=${bounds.lon_min}&lon_max=${bounds.lon_max}`;
+        
+        console.log(`Loading temperature trend for region: ${selectedRegion}`);
+        console.log(`Bounds:`, bounds);
+        console.log(`Query: /api/trends?${query}`);
 
         fetch(`/api/trends?${query}`)
           .then(res => res.json())
           .then(data => {
+            console.log(`Temperature data received:`, data);
+            console.log(`Number of data points:`, data.temp_data ? data.temp_data.length : 0);
             const ctx2 = document.getElementById("chart-line").getContext("2d");
 
             if (trendChart) trendChart.destroy();
@@ -1324,7 +1330,7 @@ The data includes variables such as temperature, salinity, dissolved oxygen, dep
       if (climatologyChart) {
         climatologyChart.data.labels = data.months;
         climatologyChart.data.datasets = [climatologyDataset, anomaliesDataset];
-        climatologyChart.update();
+        climatologyChart.update('none'); // Update without animation
         return;
       }
 

@@ -500,6 +500,14 @@ def trends():
     df_oxy = pd.read_csv("data/cleaned_surface_oxy.csv")
     df_sal = pd.read_csv("data/cleaned_surface_sal.csv")
 
+    # Clean data - remove invalid lat/lon values (e.g., -999 fill values)
+    df_temp = df_temp[(df_temp['lat'] >= -90) & (df_temp['lat'] <= 90) & 
+                      (df_temp['lon'] >= -180) & (df_temp['lon'] <= 180)]
+    df_oxy = df_oxy[(df_oxy['lat'] >= -90) & (df_oxy['lat'] <= 90) & 
+                    (df_oxy['lon'] >= -180) & (df_oxy['lon'] <= 180)]
+    df_sal = df_sal[(df_sal['lat'] >= -90) & (df_sal['lat'] <= 90) & 
+                    (df_sal['lon'] >= -180) & (df_sal['lon'] <= 180)]
+
     df_temp['time'] = pd.to_datetime(df_temp['time'])
     df_temp['year'] = df_temp['time'].dt.year
 
@@ -510,7 +518,7 @@ def trends():
     df_sal['year'] = df_sal['time'].dt.year
 
     # Get region from query string (support both named regions and custom bounds)
-    region = request.args.get('region', 'global')
+    region = request.args.get('region', None)
     
     # Define region bounds
     region_bounds = {
@@ -523,7 +531,7 @@ def trends():
     }
     
     # Get bounds from region or use custom parameters
-    if region in region_bounds:
+    if region and region in region_bounds:
         b = region_bounds[region]
     else:
         # Fallback to custom lat/lon parameters (for backwards compatibility)
